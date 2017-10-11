@@ -1,6 +1,9 @@
+package controllers;
 import javafx.application.*;
 import javafx.scene.*;
 import javafx.stage.*;
+import views.View;
+
 import java.util.*;
 
 public abstract class MainController {

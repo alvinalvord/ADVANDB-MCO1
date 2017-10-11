@@ -1,4 +1,6 @@
+package controllers;
 import javafx.stage.*;
+import views.QueryBuildView;
 
 public class ViewController extends MainController {
 	

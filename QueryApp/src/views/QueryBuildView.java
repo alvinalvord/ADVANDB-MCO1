@@ -1,3 +1,4 @@
+package views;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
