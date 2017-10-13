@@ -6,8 +6,7 @@ import javafx.scene.control.*;
 public class QueryBuildView extends BorderPane implements View {
 	
 	public QueryBuildView () {
-		Label l = new Label ("Hello");
-		setCenter (l);
+		setCenter(new ResultsView("hello", "hi"));
 	}
 	
 	public void update () {
