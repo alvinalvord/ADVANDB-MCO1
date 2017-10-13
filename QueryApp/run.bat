@@ -1,7 +1,7 @@
 @echo off
 
 @echo compiling src files
-javac src/*.java -d bin
+javac src/*.java src/views/*.java src/controllers/*.java src/model/*.java -d bin
 @echo compile done...
 
 @echo initializing program
