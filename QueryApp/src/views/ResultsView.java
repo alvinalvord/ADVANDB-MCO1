@@ -1,17 +1,11 @@
 package views;
 
-import java.awt.Paint;
-
-//import java.util.*;
 import javafx.geometry.*;
-import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.control.*;
 
 public class ResultsView extends VBox implements View{
-	private final static double width = 960;
-	
 	private ChoiceBox<String> querySelection;
 	private Label queryPrev;
 	private Label duration;
@@ -23,8 +17,9 @@ public class ResultsView extends VBox implements View{
 		this.setPadding(new Insets(20));
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setBackground(new Background(new BackgroundFill(Color.rgb(233, 196, 255), CornerRadii.EMPTY, Insets.EMPTY)));
-		this.setMaxWidth(width);
-		this.setMinWidth(width);
+//		this.setMinWidth(width);
+//		this.setMaxWidth(width);
+		this.setFillWidth(true);
 				
 		// create drop down
 		this.querySelection = new ChoiceBox<String>();
@@ -56,7 +51,7 @@ public class ResultsView extends VBox implements View{
 	
 	private void initQueryPreview(){
 		// a e s t h e t i c c
-		queryPrev.setPrefWidth(width);
+		queryPrev.setMaxWidth(Double.MAX_VALUE);
 		queryPrev.setPadding(new Insets(10, 20, 10, 20));
 		queryPrev.setBorder(new Border(new BorderStroke(Color.rgb(200, 200, 200), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		queryPrev.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));;
@@ -64,11 +59,12 @@ public class ResultsView extends VBox implements View{
 	
 	private void initDuration(){
 		// a e s t h e t i c c
-		duration.setPrefWidth(width);
+		duration.setMaxWidth(Double.MAX_VALUE);
 		duration.setPadding(new Insets(10, 20, 10, 20));
 		duration.setBorder(new Border(new BorderStroke(Color.rgb(200, 200, 200), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		duration.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));;
 	}
+	
 	
 	/*
 	public void initTable(ObservableList<String> results, ArrayList<String> columnNames){
