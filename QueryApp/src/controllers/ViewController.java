@@ -20,7 +20,6 @@ public class ViewController extends MainController {
 			default:
 				currentView = 0;
 		}
-		
 		changeView ();
 	}
 	
