@@ -15,6 +15,8 @@ public class QuerySelectView extends ScrollPane implements View{
 	private VBox vb;
 	private Button[] buttons;
 	
+	private int selected = -1;
+	
 	public QuerySelectView(){
 		
 		super();
@@ -56,6 +58,10 @@ public class QuerySelectView extends ScrollPane implements View{
 			buttons[i].setOnMouseEntered(e -> {
 				buttons[j].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(2.5), new Insets(10))));
 				buttons[j].setTextFill(Color.BLACK);
+				
+				buttons[j].setOnMouseClicked(c -> {
+					select(j);
+				});
 			});
 			
 			buttons[i].setOnMouseExited(e -> {
@@ -70,6 +76,10 @@ public class QuerySelectView extends ScrollPane implements View{
 	public void update() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void select(int index){
+		this.selected = index;
 	}
 
 }
