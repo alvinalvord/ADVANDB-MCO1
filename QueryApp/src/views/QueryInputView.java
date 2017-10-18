@@ -1,13 +1,16 @@
 package views;
 
 import java.util.ArrayList;
-
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 public class QueryInputView extends GridPane implements View {
 	
@@ -63,7 +66,7 @@ public class QueryInputView extends GridPane implements View {
 		
 		for(int i = 0; i < buttons.length; i++){
 			buttons[i] = new Button(text[i]);
-//			buttons[i].setMinWidth(40);
+			buttons[i].setBackground(new Background(new BackgroundFill(Color.AZURE, CornerRadii.EMPTY, new Insets(15))));
 		}
 	}
 	
@@ -99,7 +102,6 @@ public class QueryInputView extends GridPane implements View {
 		this.addRow(3, dropdowns.get(1));
 		this.addRow(7, dropdowns.get(2));
 		this.addRow(11, dropdowns.get(3));
-		
 	}
 	
 	@Override

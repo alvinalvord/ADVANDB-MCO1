@@ -6,11 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.*;
 
 public class ResultsView extends VBox implements View{
-<<<<<<< HEAD
 	private final static double width = 960;
-
-=======
->>>>>>> 56e62f0311f9af6e3cdec5cfa6ecd23ff1b11136
 	private ChoiceBox<String> querySelection;
 	private Label queryPrev;
 	private Label duration;
@@ -22,16 +18,13 @@ public class ResultsView extends VBox implements View{
 		this.setPadding(new Insets(20));
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setBackground(new Background(new BackgroundFill(Color.rgb(233, 196, 255), CornerRadii.EMPTY, Insets.EMPTY)));
-<<<<<<< HEAD
 		this.setMaxWidth(width);
 		this.setMinWidth(width);
 
-=======
 //		this.setMinWidth(width);
 //		this.setMaxWidth(width);
 		this.setFillWidth(true);
 				
->>>>>>> 56e62f0311f9af6e3cdec5cfa6ecd23ff1b11136
 		// create drop down
 		this.querySelection = new ChoiceBox<String>();
 
@@ -53,7 +46,7 @@ public class ResultsView extends VBox implements View{
 	private void initQuerySelection(int numOfQueries){
 		// add values to dropdown list
 		for(int i = 1; i <= numOfQueries; i++)
-			this.querySelection.getItems().add("Query " + i);
+			this.querySelection.getItems().add("Variant " + i);
 
 		// a e s t h e t i c c
 		querySelection.setValue(querySelection.getItems().get(0));
@@ -77,7 +70,6 @@ public class ResultsView extends VBox implements View{
 	}
 
 	
-<<<<<<< HEAD
 	/*public void initTable(ObservableList<String> results, ArrayList<String> columnNames){
 =======
 	
