@@ -10,6 +10,7 @@ public class ViewController extends MainController {
 	
 	protected void initViews () {
 		views.add (new QueryBuildView ());
+		// you have to call QuerySelectView's setQueries to set the queries to be displayed upon expansion
 	}
 	
 	public void setScene (int n) {

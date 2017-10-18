@@ -20,9 +20,6 @@ public class ResultsView extends VBox implements View{
 		this.setBackground(new Background(new BackgroundFill(Color.rgb(233, 196, 255), CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setMaxWidth(width);
 		this.setMinWidth(width);
-
-//		this.setMinWidth(width);
-//		this.setMaxWidth(width);
 		this.setFillWidth(true);
 				
 		// create drop down
