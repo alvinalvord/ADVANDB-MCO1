@@ -5,16 +5,17 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.control.*;
 
+import java.util.ArrayList;
+
 public class ResultsView extends VBox implements View{
-<<<<<<< HEAD
+
 	private final static double width = 960;
 
-=======
->>>>>>> 56e62f0311f9af6e3cdec5cfa6ecd23ff1b11136
 	private ChoiceBox<String> querySelection;
 	private Label queryPrev;
 	private Label duration;
 	private TableView<String> resultsTable;
+	private ArrayList<String> fromResults;
 
 	public ResultsView(String queryPrev, String duration, int numOfQueries){
 		super(20);
@@ -22,16 +23,14 @@ public class ResultsView extends VBox implements View{
 		this.setPadding(new Insets(20));
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setBackground(new Background(new BackgroundFill(Color.rgb(233, 196, 255), CornerRadii.EMPTY, Insets.EMPTY)));
-<<<<<<< HEAD
+
 		this.setMaxWidth(width);
 		this.setMinWidth(width);
 
-=======
 //		this.setMinWidth(width);
 //		this.setMaxWidth(width);
 		this.setFillWidth(true);
-				
->>>>>>> 56e62f0311f9af6e3cdec5cfa6ecd23ff1b11136
+
 		// create drop down
 		this.querySelection = new ChoiceBox<String>();
 
@@ -54,7 +53,6 @@ public class ResultsView extends VBox implements View{
 		// add values to dropdown list
 		for(int i = 1; i <= numOfQueries; i++)
 			this.querySelection.getItems().add("Query " + i);
-
 		// a e s t h e t i c c
 		querySelection.setValue(querySelection.getItems().get(0));
 
@@ -77,25 +75,21 @@ public class ResultsView extends VBox implements View{
 	}
 
 	
-<<<<<<< HEAD
-	/*public void initTable(ObservableList<String> results, ArrayList<String> columnNames){
-=======
-	
-	/*
-	public void initTable(ObservableList<String> results, ArrayList<String> columnNames){
->>>>>>> 56e62f0311f9af6e3cdec5cfa6ecd23ff1b11136
-		// populate table with data
-		resultsTable.setItems(results);
+/*
+	 public void initTable(ObservableList<String> results, ArrayList<String> columnNames){
+	 	// populate table with data
+	 	resultsTable.setItems(results);
 
-		// create columns
-		ArrayList<TableColumn> temp = new ArrayList<TableColumn>();
+	 	// create columns
+	 	ArrayList<TableColumn> temp = new ArrayList<TableColumn>();
 
-		for(String column : columnNames)
-			temp.add(new TableColumn<String, String>(column).setCellValueFactory(column));
+	 	for(String column : columnNames)
+	 		temp.add(new TableColumn<String, String>(column).setCellValueFactory(column));
 
-		resultsTable.getColumns().setAll(temp);
-	}*/
-	
+	 	resultsTable.getColumns().setAll(temp);
+	 }
+*/
+
 
 	public void addChildren(){
 		getChildren().add(querySelection);

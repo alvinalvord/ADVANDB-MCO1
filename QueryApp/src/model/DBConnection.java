@@ -1,21 +1,19 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
 public class DBConnection {
-	
+
 	 static Connection con=null;
 
-	    public static Connection getConnection()
-	    {
+	    public static Connection getConnection() throws SQLException {
 	        if (con != null) return con;
 	        // get db, user, pass from settings file
-	        return getConnection("webapde", "root", "jgana1997");
+	        return getConnection("advandb_mco1_librarydb", "root", "jgana1997");
+
 	    }
 
-	    private static Connection getConnection(String db_name,String user_name,String password)
-	    {
+	    private static Connection getConnection(String db_name,String user_name,String password) throws SQLException {
 	        try
 	        {
 	            Class.forName("com.mysql.jdbc.Driver");
@@ -26,6 +24,11 @@ public class DBConnection {
 	            e.printStackTrace();
 	        }
 
+			DatabaseMetaData md = con.getMetaData();
+			ResultSet rs = md.getTables(null, null, "%", null);
+			while (rs.next()) {
+				System.out.println(rs.getString(3));
+			}
 
 	        return con;
 	    }
