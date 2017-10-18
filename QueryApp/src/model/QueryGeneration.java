@@ -10,6 +10,7 @@ public class QueryGeneration extends Model {
 
         switch(type){
             case 1:
+
                 break;
             case 2: break;
             case 3: break;
@@ -22,8 +23,8 @@ public class QueryGeneration extends Model {
 
     }
 
-    public void oneTable(String from, ArrayList<String> select){
-        
+    public void oneTable(String query){
+
     }
 
     @Override
