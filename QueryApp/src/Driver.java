@@ -12,12 +12,15 @@ import model.*;
 public class Driver extends Application {
 
 	public void start (Stage mainStage) throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
-		Model model = new QueryModelView();
-		model.getTablesNames();
+	/*	Model model = new QueryModelView();
+		model.getTablesNames();*/
 
-		Query1 asdf = new Query1();
-		asdf.setQuery("SELECT * FROM book;");
-		asdf.generate();
+		Query1 q1 = new Query1("*", "BBC Books");
+		//q1.generate();
+
+		Query2 q2 = new Query2("*", "2011-07-07", "2011-07-10");
+		q2.generate();
+
 		new ViewController (mainStage);
 	}
 

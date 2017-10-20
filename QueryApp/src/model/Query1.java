@@ -7,21 +7,27 @@ import java.sql.*;
 public class Query1 implements QueryFactory{
 
     String query;
+    String from, select, where;
+
+    public Query1(String selects, String where){
+        //query = "SELECT * FROM book WHERE PublisherName = '" + where +"'";
+        select = "SELECT " + selects + " ";
+        from = "FROM book ";
+        where =  "WHERE PublisherName = '" + where +"'";
+        query = select + from + where;
+    }
 
     @Override
     public void generate() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
 
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/advandb_mco1_librarydb", "root", "jgana1997");
-        Statement st = con.createStatement();
-        String sql = (query);
-        ResultSet rs = st.executeQuery(sql);
+        DBConnection db = new DBConnection();
+        ResultSet rs = db.getConnection(query);
 
         while(rs.next()) {
             String id = rs.getString("Title");
             System.out.println(id);
         }
-        con.close();
+        db.closeConnection();
     }
 
     @Override

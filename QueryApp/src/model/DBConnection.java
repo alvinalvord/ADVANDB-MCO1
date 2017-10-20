@@ -5,33 +5,25 @@ import java.util.ArrayList;
 
 public class DBConnection {
 
-	 static Connection con=null;
+	private Connection con;
 
-	    public static Connection getConnection() throws SQLException {
-	        if (con != null) return con;
-	        // get db, user, pass from settings file
-	        return getConnection("advandb_mco1_librarydb", "root", "jgana1997");
+	public DBConnection(){
+		con = null;
+	}
 
-	    }
+	public ResultSet getConnection(String query) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		con = DriverManager.getConnection("jdbc:mysql://localhost/advandb_mco1_librarydb", "root", "jgana1997");
 
-	    private static Connection getConnection(String db_name,String user_name,String password) throws SQLException {
-	        try
-	        {
-	            Class.forName("com.mysql.jdbc.Driver");
-	            con= DriverManager.getConnection("jdbc:mysql://localhost:3306/"+db_name+"?user="+ user_name+"&password="+password);
-	        }
-	        catch(Exception e)
-	        {
-	            e.printStackTrace();
-	        }
+			Statement st = con.createStatement();
+			String sql = (query);
+			ResultSet rs = st.executeQuery(sql);
+			return rs;
 
-			DatabaseMetaData md = con.getMetaData();
-			ResultSet rs = md.getTables(null, null, "%", null);
-			while (rs.next()) {
-				System.out.println(rs.getString(3));
-			}
+	}
 
-	        return con;
-	    }
-
+	public void closeConnection() throws SQLException {
+//		System.out.println("db closed");
+		con.close();
+	}
 }

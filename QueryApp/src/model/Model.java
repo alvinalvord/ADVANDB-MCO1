@@ -23,11 +23,6 @@ public abstract class Model {
 			v.update ();
 	}
 
-	public Connection connectDB() throws SQLException {
-		DBConnection con = new DBConnection();
-		this.dbCon = (Connection) con.getConnection();
-		return dbCon;
-	}
 
 	public abstract ArrayList<String> getTablesNames() throws SQLException;
 }
