@@ -6,6 +6,7 @@ public class Query1 extends QueryObject {
 	
 	public Query1 () {
 		super ();
+		initVariants ();
 		table = new Table ("Title", "PublisherName");
 		setViewing (0);
 	}
