@@ -14,9 +14,8 @@ public class Query1 extends QueryObject {
 	private void initVariants () {
 		variants.add
 			("select title, publishername " +
-			"from book " + 
-			"where publishername = 'Apple' " +
-			"order by 1");
+			"from book " +
+			"where publishername like '%book%'");
 	}
 	
 	public void prepareUpdates () throws Exception {

@@ -27,6 +27,7 @@ public class ViewController extends MainController {
 		switch (n) {
 			case 0:
 				currentView = n;
+				break;
 				
 			default:
 				currentView = 0;

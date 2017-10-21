@@ -133,24 +133,23 @@ public class ResultsView extends VBox implements View{
 		QueryObject qo = FactoryProducer.getFactory(1).getQueryObject(1);
 		final ObservableList<RowItem> ol = qo.getTable().getRowItems();
 		FontMetrics fontMetrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(new Font("Roboto", 14));
-		TableColumn[] tc = new TableColumn[qo.getTable().getHeaders().length];
 		
-		for(int i = 0; i < tc.length; i++){
-			tc[i] = new TableColumn(qo.getTable().getHeaders()[i]);
-			tc[i].setMinWidth(75);
-			tc[i].setMaxWidth(Double.MAX_VALUE);
-			tc[i].setCellFactory(new PropertyValueFactory<RowItem, String>("col" + i));
+		for(int i = 0; i < qo.getTable().getHeaders().length; i++){
+			TableColumn <RowItem, String> tc = new TableColumn <>(qo.getTable().getHeaders()[i]);
+			tc.setMinWidth(75);
+			tc.setMaxWidth(Double.MAX_VALUE);
+			tc.setCellValueFactory(new PropertyValueFactory <RowItem, String>("col" + i));
 			
-			resultsTable.getColumns().add(tc[i]);
-	        double textwidth =      fontMetrics.computeStringWidth(qo.getTable().getHeaders()[i]);
+			resultsTable.getColumns().add(tc);
+	        double textwidth = fontMetrics.computeStringWidth(qo.getTable().getHeaders()[i]);
 	        resultsTable.getColumns().get(i).setPrefWidth(textwidth + 50);
 		}
 		resultsTable.setItems(ol);
 	}
 
 	public void update(){
-		setTableItems();
 		getChildren().clear();
+		setTableItems();
 		addChildren();
 	}
 }

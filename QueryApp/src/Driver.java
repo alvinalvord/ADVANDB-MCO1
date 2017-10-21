@@ -11,7 +11,7 @@ public class Driver extends Application {
 	
 	public static void main (String[] args) {
 		String user = "root";
-		String pass = "0825";
+		String pass = "root";
 		
 		DBConnection.getConnection ()
 			.setConnection ("advandb_mco1_librarydb", user, pass);
