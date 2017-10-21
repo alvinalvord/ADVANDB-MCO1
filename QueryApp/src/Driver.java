@@ -1,22 +1,21 @@
-import controllers.ViewController;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import model.DBConnection;
+import model.*;
+import controllers.*;
+import javafx.application.*;
+import javafx.stage.*;
 
 public class Driver extends Application {
-
+	
 	public void start (Stage mainStage) {
 		new ViewController (mainStage);
 	}
-
+	
 	public static void main (String[] args) {
-		DBConnection dbCon = new DBConnection();
-		if(dbCon.getConnection() == null){
-			System.out.println("NULL");
-		}else{
-			System.out.println("sdjaflkfjkldasf");
-		}
+		String user = "root";
+		String pass = "root";
+		
+		DBConnection.getConnection ()
+			.setConnection ("advandb_mco1_librarydb", user, pass);
 		launch (args);
 	}
-
+	
 }
