@@ -8,7 +8,6 @@ public class DBConnection {
 	
 	private Connection con;
 	private Statement stmt;
-	private ResultSet rs;
 	
 	private DBConnection () {}
 	

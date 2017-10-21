@@ -1,16 +1,29 @@
 package views;
 
+import com.sun.javafx.tk.FontMetrics;
+import com.sun.javafx.tk.Toolkit;
+
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.util.Callback;
+import model.AbstractFactory;
+import model.FactoryProducer;
+import model.QueryObject;
+import model.RowItem;
 import javafx.scene.control.*;
+import javafx.scene.control.TableView.ResizeFeatures;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ResultsView extends VBox implements View{
 	private final static double width = 960;
 	private ChoiceBox<String> querySelection;
 	private Label queryPrev;
 	private Label duration;
-	private TableView<String> resultsTable;
+	private TableView<RowItem> resultsTable;
 	
 	public ResultsView(){
 		super(20);
@@ -33,7 +46,9 @@ public class ResultsView extends VBox implements View{
 		// create Duration display box
 		this.duration = new Label("Duration: ");
 		
-		this.resultsTable = new TableView<String>();
+		this.resultsTable = new TableView<RowItem>();
+
+//		resultsTable.setColumnResizePolicy((param) -> true); 
 		
 		initQueryPreview();
 		initDuration();
@@ -77,11 +92,11 @@ public class ResultsView extends VBox implements View{
 		this.duration.setText(this.duration.getText() + duration + "s");
 	}
 
-	public TableView<String> getResultsTable() {
+	public TableView<RowItem> getResultsTable() {
 		return resultsTable;
 	}
 
-	public void setResultsTable(TableView<String> resultsTable) {
+	public void setResultsTable(TableView<RowItem> resultsTable) {
 		this.resultsTable = resultsTable;
 	}
 	
@@ -99,46 +114,42 @@ public class ResultsView extends VBox implements View{
 	private void initQueryPreview(){
 		// a e s t h e t i c c
 		queryPrev.setMaxWidth(Double.MAX_VALUE);
-//		queryPrev.setPadding(new Insets(10, 20, 10, 20));
-//		queryPrev.setBorder(new Border(new BorderStroke(Color.rgb(200, 200, 200), BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
-//		queryPrev.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));;
+		queryPrev.setId("lbl");
 	}
 
 	private void initDuration(){
 		// a e s t h e t i c c
 		duration.setMaxWidth(Double.MAX_VALUE);
-		duration.setPadding(new Insets(10, 20, 10, 20));
-		duration.setBorder(new Border(new BorderStroke(Color.rgb(200, 200, 200), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		duration.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));;
+		duration.setId("lbl");
 	}
-
-	
-	/*public void initTable(ObservableList<String> results, ArrayList<String> columnNames){
-=======
-	
-	/*
-	public void initTable(ObservableList<String> results, ArrayList<String> columnNames){
->>>>>>> 56e62f0311f9af6e3cdec5cfa6ecd23ff1b11136
-		// populate table with data
-		resultsTable.setItems(results);
-
-		// create columns
-		ArrayList<TableColumn> temp = new ArrayList<TableColumn>();
-
-		for(String column : columnNames)
-			temp.add(new TableColumn<String, String>(column).setCellValueFactory(column));
-
-		resultsTable.getColumns().setAll(temp);
-	}*/
-	
 
 	public void addChildren(){
 		getChildren().add(querySelection);
 		getChildren().addAll(queryPrev, duration);
 		getChildren().add(resultsTable);
 	}
+	
+	public void setTableItems(){
+		QueryObject qo = FactoryProducer.getFactory(1).getQueryObject(1);
+		final ObservableList<RowItem> ol = qo.getTable().getRowItems();
+		FontMetrics fontMetrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(new Font("Roboto", 14));
+		TableColumn[] tc = new TableColumn[qo.getTable().getHeaders().length];
+		
+		for(int i = 0; i < tc.length; i++){
+			tc[i] = new TableColumn(qo.getTable().getHeaders()[i]);
+			tc[i].setMinWidth(75);
+			tc[i].setMaxWidth(Double.MAX_VALUE);
+			tc[i].setCellFactory(new PropertyValueFactory<RowItem, String>("col" + i));
+			
+			resultsTable.getColumns().add(tc[i]);
+	        double textwidth =      fontMetrics.computeStringWidth(qo.getTable().getHeaders()[i]);
+	        resultsTable.getColumns().get(i).setPrefWidth(textwidth + 50);
+		}
+		resultsTable.setItems(ol);
+	}
 
 	public void update(){
+		setTableItems();
 		getChildren().clear();
 		addChildren();
 	}

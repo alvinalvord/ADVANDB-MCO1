@@ -30,11 +30,15 @@
 	-fx-background-color: linear-gradient(to top, #000040 0%, black 100%);
 }
 
-.label{
+#lbl {
 	-fx-padding: 10, 20, 10, 20;
 	-fx-background-color: linear-gradient(to bottom, peachpuff  0%, #feb6a9 100%);
 	-fx-border-color: transparent;
 	-fx-border-radius: 3;
+}
+
+.table-view .filler, .table-view .column-header{
+	-fx-background-color: linear-gradient(to bottom, peachpuff  0%, #feb6a9 100%);
 }
 
 .QuerySelectView{
