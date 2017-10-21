@@ -11,39 +11,85 @@ public class ResultsView extends VBox implements View{
 	private Label queryPrev;
 	private Label duration;
 	private TableView<String> resultsTable;
-
-	public ResultsView(String queryPrev, String duration, int numOfQueries){
+	
+	public ResultsView(){
 		super(20);
 
 		this.setPadding(new Insets(20));
-		this.setAlignment(Pos.CENTER_LEFT);
-		this.setBackground(new Background(new BackgroundFill(Color.rgb(233, 196, 255), CornerRadii.EMPTY, Insets.EMPTY)));
+		this.setAlignment(Pos.TOP_RIGHT);
 		this.setMaxWidth(width);
 		this.setMinWidth(width);
 		this.setFillWidth(true);
+		
+		this.getStylesheets().add("style.css");
+		this.setId("bg");
 				
 		// create drop down
 		this.querySelection = new ChoiceBox<String>();
 
 		// create Query Preview box
-		this.queryPrev = new Label(queryPrev);
+		this.queryPrev = new Label("Query Preview");
 
 		// create Duration display box
-		this.duration = new Label(duration);
-
-		// create Results Table
-		resultsTable = new TableView<String>();
-
-		initQuerySelection(numOfQueries);
+		this.duration = new Label("Duration: ");
+		
+		this.resultsTable = new TableView<String>();
+		
 		initQueryPreview();
 		initDuration();
 		addChildren();
 	}
 
-	private void initQuerySelection(int numOfQueries){
+	public ResultsView(String queryPrev, double d, int numOfQueries){
+		this();
+
+		// create Query Preview box
+		setQueryPrev(queryPrev);
+
+		// create Duration display box
+		setDuration(d);
+		
+		initQuerySelection(numOfQueries);
+	}
+
+
+	public ChoiceBox<String> getQuerySelection() {
+		return querySelection;
+	}
+
+	public void setQuerySelection(ChoiceBox<String> querySelection) {
+		this.querySelection = querySelection;
+	}
+
+	public Label getQueryPrev() {
+		return queryPrev;
+	}
+
+	public void setQueryPrev(String queryPrev) {
+		this.queryPrev.setText(queryPrev);
+	}
+
+	public Label getDuration() {
+		return duration;
+	}
+
+	public void setDuration(double duration) {
+		this.duration.setText(this.duration.getText() + duration + "s");
+	}
+
+	public TableView<String> getResultsTable() {
+		return resultsTable;
+	}
+
+	public void setResultsTable(TableView<String> resultsTable) {
+		this.resultsTable = resultsTable;
+	}
+	
+	public void initQuerySelection(int numOfQueries){		
 		// add values to dropdown list
-		for(int i = 1; i <= numOfQueries; i++)
+		for(int i = 1; i <= numOfQueries; i++){
 			this.querySelection.getItems().add("Variant " + i);
+		}
 
 		// a e s t h e t i c c
 		querySelection.setValue(querySelection.getItems().get(0));
@@ -53,9 +99,9 @@ public class ResultsView extends VBox implements View{
 	private void initQueryPreview(){
 		// a e s t h e t i c c
 		queryPrev.setMaxWidth(Double.MAX_VALUE);
-		queryPrev.setPadding(new Insets(10, 20, 10, 20));
-		queryPrev.setBorder(new Border(new BorderStroke(Color.rgb(200, 200, 200), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		queryPrev.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));;
+//		queryPrev.setPadding(new Insets(10, 20, 10, 20));
+//		queryPrev.setBorder(new Border(new BorderStroke(Color.rgb(200, 200, 200), BorderStrokeStyle.SOLID, new CornerRadii(3), BorderWidths.DEFAULT)));
+//		queryPrev.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));;
 	}
 
 	private void initDuration(){
@@ -93,6 +139,7 @@ public class ResultsView extends VBox implements View{
 	}
 
 	public void update(){
-
+		getChildren().clear();
+		addChildren();
 	}
 }

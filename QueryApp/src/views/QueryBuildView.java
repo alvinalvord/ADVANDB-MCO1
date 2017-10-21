@@ -1,17 +1,57 @@
 package views;
+import controllers.ViewController;
 import javafx.scene.layout.*;
 
 public class QueryBuildView extends BorderPane implements View {
 	
-	public QueryBuildView () {
+	private QuerySelectView qsv;
+	private ResultsView rv;
+	private ViewController vc;
+	
+	public QueryBuildView (ViewController vc) {
+		qsv = new QuerySelectView();
+		rv = new ResultsView();
 		
-		this.setRight(new QuerySelectView());
+		this.vc = vc;
 		
-		// di ko alam kung san manggagaling yung numOfQueries so i put a constant lol
-		this.setCenter(new ResultsView("Query Preview", "Duration: 0.01234s", 10));
+		this.setRight(qsv);
+		
+		this.setCenter(rv);
+	}
+	
+	public QuerySelectView getQsv() {
+		return qsv;
+	}
+
+	public void setQsv(QuerySelectView qsv) {
+		this.qsv = qsv;
+	}
+
+	public ResultsView getRv() {
+		return rv;
+	}
+
+	public void setRv(ResultsView rv) {
+		this.rv = rv;
+	}
+
+	public void setQueryPreview(String preview){
+		rv.setQueryPrev(preview);
+		update();
+	}
+	
+	public void setDuration(double duration){
+		rv.setDuration(duration);
+		update();
+	}
+	
+	public void setNumOfQueries(int num){
+		rv.initQuerySelection(num);
+		update();
 	}
 	
 	public void update () {
-		
+		qsv.update();
+		rv.update();
 	}
 }

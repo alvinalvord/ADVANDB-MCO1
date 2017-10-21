@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -13,11 +15,8 @@ import javafx.scene.paint.Color;
 public class QuerySelectView extends ScrollPane implements View{
 	
 	private VBox vb;
-	private Button[] buttons;
+	private ToggleButton[] buttons;
 	private String[] queries;
-	
-	private int selected = -1;
-	private boolean[] opened;
 	
 	public QuerySelectView(){
 		
@@ -29,21 +28,18 @@ public class QuerySelectView extends ScrollPane implements View{
 		this.setFitToWidth(true);
 		
 		initLayout();
-		initOpened();
 		
 		this.setContent(vb);
+		
+		this.getStylesheets().add("style.css");
+		
+		this.getStyleClass().add("QuerySelectView");
+		
+		this.setPadding(new Insets(0));
 	}
 	
 	public void setQueries(String[] queries){
 		this.queries = queries;
-	}
-	
-	private void initOpened(){
-		opened = new boolean[8];
-		
-		for(int i = 0; i < opened.length; i++){
-			opened[i] = false;
-		}
 	}
 	
 	private void initLayout(){
@@ -51,7 +47,14 @@ public class QuerySelectView extends ScrollPane implements View{
 		
 		vb.setPadding(new Insets(20));
 		vb.setAlignment(Pos.TOP_CENTER);
-		vb.setBackground(new Background(new BackgroundFill(Color.rgb(233, 196, 255), CornerRadii.EMPTY, Insets.EMPTY)));
+		
+		vb.setOnScroll(e -> {
+			double deltaY = e.getDeltaY()*6; // *6 to make the scrolling a bit faster
+			double width = this.getContent().getBoundsInLocal().getWidth();
+			double vvalue = this.getVvalue();
+			this.setVvalue(vvalue + -deltaY/width);
+		});
+		vb.setId("selection");
 		
 		initButtons();
 		
@@ -59,47 +62,28 @@ public class QuerySelectView extends ScrollPane implements View{
 	}
 	
 	private void initButtons(){
-		buttons = new Button[8];
+		buttons = new ToggleButton[8];
+		ToggleGroup tg = new ToggleGroup();
 		
 		for(int i = 0; i < buttons.length; i++){
-			buttons[i] = new Button("Query " + (i+1));
-			buttons[i].setAlignment(Pos.CENTER);
+			buttons[i] = new ToggleButton("Query " + (i+1));
 			buttons[i].setMinSize(320, 75);
 			buttons[i].setMaxHeight(Double.MAX_VALUE);
-			buttons[i].setBackground(new Background(new BackgroundFill(Color.LIGHTCORAL, new CornerRadii(2.5), new Insets(10))));
-			buttons[i].setTextFill(Color.WHITE);
-			buttons[i].setStyle("-fx-padding: 20px");
-			
-			// hover stuff
-			int j = i;
-			buttons[i].setOnMouseEntered(e -> {
-				buttons[j].setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(2.5), new Insets(10))));
-				buttons[j].setTextFill(Color.BLACK);
-			});
-			
-			buttons[i].setOnMouseExited(e -> {
-				buttons[j].setBackground(new Background(new BackgroundFill(Color.LIGHTCORAL, new CornerRadii(2.5), new Insets(10))));
-				buttons[j].setTextFill(Color.WHITE);
-			});
+			buttons[i].getStylesheets().add("style.css");
 			
 			buttons[i].setOnMouseClicked(e -> {
-				opened[j] = !opened[j];
-				select(j);
 				update();
 			});
 		}
+		
+		tg.getToggles().addAll(buttons);
 	}
 
 	// pag may kailangan ichange sa view
 	@Override
 	public void update() {
-		for(int j = 0; j < opened.length; j++){
-			if(j != selected && opened[j])
-				opened[j] = false;
-		}
-		
 		for(int j = 0; j < buttons.length; j++){
-			if(opened[j]){
+			if(buttons[j].isSelected()){
 				buttons[j].setText(buttons[j].getText() + "\n\n" + queries[j]);
 			}
 			else{
@@ -110,9 +94,4 @@ public class QuerySelectView extends ScrollPane implements View{
 		vb.getChildren().clear();
 		vb.getChildren().addAll(buttons);
 	}
-	
-	public void select(int index){
-		this.selected = index;
-	}
-
 }

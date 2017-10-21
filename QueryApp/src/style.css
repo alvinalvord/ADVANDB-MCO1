@@ -1,0 +1,84 @@
+.root *{
+	-fx-font-family: "Roboto";
+	-fx-font-size: 14px;
+	-fx-text-alignment: center;
+	-fx-focus-color: white;
+	-fx-faint-focus-color: white;
+}
+
+.toggle-button, .choice-box{
+	-fx-background-color: linear-gradient(to bottom, peachpuff  0%, #ffb29b 100%);
+}
+
+.toggle-button{
+	-fx-padding: 20px;
+}
+
+.toggle-button:hover, .toggle-button:selected{
+	-fx-background-color: linear-gradient(to top, peachpuff  0%, #ffb29b 100%);	
+	-fx-border-color: white;
+	-fx-border-width: 1;
+	-fx-border-radius: 3;
+	-fx-text-fill: midnightblue  ;
+}
+
+#bg{
+	-fx-background-color: linear-gradient(to top, #000040 0%, black 100%);
+}
+
+#selection{
+	-fx-background-color: linear-gradient(to top, #000040 0%, black 100%);
+}
+
+.label{
+	-fx-padding: 10, 20, 10, 20;
+	-fx-background-color: linear-gradient(to bottom, peachpuff  0%, #feb6a9 100%);
+	-fx-border-color: transparent;
+	-fx-border-radius: 3;
+}
+
+.QuerySelectView{
+	-fx-background-color: linear-gradient(to top, #000040 0%, black 100%);
+}
+
+.QuerySelectView > .scroll-bar,
+.QuerySelectView > .scroll-bar:vertical,
+.QuerySelectView > .scroll-bar:horizontal,
+.QuerySelectView > .scroll-bar:vertical .track,
+.QuerySelectView > .scroll-bar:horizontal .track {
+	-fx-background-color: linear-gradient(to top, #000040 0%, black 100%);
+	-fx-border-color: transparent;
+	-fx-background-radius: 0px;
+	-fx-border-radius: 0px;
+}
+
+.QuerySelectView > .scroll-bar:vertical .thumb,
+.QuerySelectView > .scroll-bar:horizontal .thumb {
+	-fx-background-color: peachpuff;
+	-fx-background-radius: 20px;
+}
+
+.QuerySelectView > .scroll-bar:vertical .decrement-button,
+.QuerySelectView > .scroll-bar:vertical .increment-button {
+	-fx-background-color: transparent;
+	-fx-background-radius: 0px;
+	-fx-padding: 0 10 0 0;
+}
+
+.QuerySelectView > .scroll-bar:horizontal .decrement-button,
+.QuerySelectView > .scroll-bar:horizontal .increment-button {
+	-fx-background-color: transparent;
+	-fx-background-radius: 0px;
+	-fx-padding: 10 0 0 0;
+}
+
+.QuerySelectView > .scroll-bar .decrement-arrow,
+.QuerySelectView > .scroll-bar .increment-arrow {
+	-fx-shape: "";
+	-fx-padding: 0;
+}
+
+.QuerySelectView > .corner {
+	-fx-background-color: transparent;
+	-fx-padding: 0;
+}
