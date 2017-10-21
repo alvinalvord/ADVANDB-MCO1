@@ -1,33 +1,50 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
 public class DBConnection {
 	
-	 static Connection con=null;
-
-	    public static Connection getConnection()
-	    {
-	        if (con != null) return con;
-	        // get db, user, pass from settings file
-	        return getConnection("webapde", "root", "jgana1997");
-	    }
-
-	    private static Connection getConnection(String db_name,String user_name,String password)
-	    {
-	        try
-	        {
-	            Class.forName("com.mysql.jdbc.Driver");
-	            con= DriverManager.getConnection("jdbc:mysql://localhost:3306/"+db_name+"?user="+ user_name+"&password="+password);
-	        }
-	        catch(Exception e)
-	        {
-	            e.printStackTrace();
-	        }
-
-
-	        return con;
-	    }
-
+	private static final DBConnection dbc = new DBConnection ();
+	
+	private Connection con;
+	private Statement stmt;
+	private ResultSet rs;
+	
+	private DBConnection () {}
+	
+	public static DBConnection getConnection () {
+		return dbc;
+	}
+	
+	public void setConnection (String db, String user, String pass) {
+		setConnection ("localhost", "3306", db, user, pass);
+	}
+	
+	public void setConnection (String host, String port, String db, String user, String pass) {
+		try {
+			Class.forName ("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection 
+				("jdbc:mysql://" + host + ":" + port + "/" + db +
+					"?useSSL=false", user, pass);
+			stmt = con.createStatement ();
+		} catch (Exception e) { e.printStackTrace (); }
+	}
+	
+	public int executeUpdate (String query) throws SQLException {
+		return stmt.executeUpdate (query);
+	}
+	
+	public ResultSet executeQuery (String query) throws SQLException {
+		return stmt.executeQuery (query);
+	}
+	
+	public void closeConnection () {
+		if (con == null)
+			return;
+		
+		try {
+			con.close ();
+		} catch (Exception e) { e.printStackTrace (); }
+	}
+	
 }
