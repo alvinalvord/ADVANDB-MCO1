@@ -15,6 +15,8 @@ public class Query1 implements QueryFactory{
         from = "FROM book ";
         where =  "WHERE PublisherName = '" + where +"'";
         query = select + from + where;
+//        System.out.println(query);
+
     }
 
     @Override

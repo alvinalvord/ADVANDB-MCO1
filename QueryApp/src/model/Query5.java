@@ -3,18 +3,19 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Query3 implements QueryFactory{
+public class Query5 implements QueryFactory{
 
     String query;
     String from, select, where;
 
-    public Query3(String selects, String where){
+    public Query5(String selects, String where){
         //query = "SELECT * FROM book WHERE PublisherName = '" + where +"'";
         select = "SELECT " + selects + " ";
-        from = "FROM book b, book_authors ba ";
-        where =  "WHERE (b.BookID = ba.BookID) AND (ba.AuthorLastName ='" + where +"')";
+        from = "FROM book ";
+        where =  "WHERE PublisherName = '" + where +"'";
         query = select + from + where;
 //        System.out.println(query);
+
     }
 
     @Override
@@ -34,5 +35,6 @@ public class Query3 implements QueryFactory{
     public void setQuery(String query){
         this.query = query;
     }
+
 
 }

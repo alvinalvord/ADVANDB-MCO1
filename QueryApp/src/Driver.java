@@ -19,7 +19,14 @@ public class Driver extends Application {
 		//q1.generate();
 
 		Query2 q2 = new Query2("*", "2011-07-07", "2011-07-10");
-		q2.generate();
+		//q2.generate();
+
+		Query3 q3 = new Query3("*", "Stormtail");
+		//q3.generate();
+
+		Query4 q4 = new Query4("*, COUNT(*) as numBor", "Bluekiller");
+		q4.generate();
+
 
 		new ViewController (mainStage);
 	}

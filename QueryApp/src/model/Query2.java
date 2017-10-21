@@ -16,7 +16,7 @@ public class Query2 implements QueryFactory{
         /*where =  "WHERE (REPLACE(DateOut, '-', '/') BETWEEN REPLACE('"+ where1 +"', '-', '/') AND REPLACE('"+ where2 +"', '-', '/'))";
         where += "AND (REPLACE(DateReturned, '-', '/') BETWEEN REPLACE('"+ where1 +"', '-', '/') AND REPLACE('"+ where2 +"', '-', '/'));";*/
         query = select + from + where;
-        System.out.println(query);
+//        System.out.println(query);
     }
 
     @Override
