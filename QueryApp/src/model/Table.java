@@ -11,7 +11,7 @@ public class Table {
 	
 	public Table (String... headers) {
 		this.headers = headers;
-		rowItems = new SimpleListProperty <> ();
+		rowItems = FXCollections.observableArrayList ();
 	}
 	
 	public String[] getHeaders () {
