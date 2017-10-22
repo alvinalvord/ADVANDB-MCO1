@@ -3,12 +3,12 @@ package views;
 import com.sun.javafx.tk.FontMetrics;
 import com.sun.javafx.tk.Toolkit;
 
+import java.text.*;
 import javafx.application.Platform;
 import javafx.collections.*;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.text.*;
 import javafx.util.Callback;
 import model.*;
 import controllers.*;
@@ -74,8 +74,12 @@ public class ResultsView extends VBox implements View{
 		return duration;
 	}
 
-	public void setDuration(double duration) {
-		this.duration.setText("Duration: " + duration + "ms");
+	public void setDuration(long duration) {
+		long ms = duration / 1000000;
+		long ns = duration % 1000000;
+		DecimalFormat df = new DecimalFormat ("000000");
+		
+		this.duration.setText("Duration: " + ms + "." + df.format(ns) + "ms");
 	}
 
 	public TableView<RowItem> getResultsTable() {

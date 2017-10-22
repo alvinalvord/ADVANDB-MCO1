@@ -25,12 +25,11 @@ public class Query6 extends QueryObject {
 		table.removeAllRowItems ();
 		
 		setQuery(variants.get(viewing));
-		System.out.println (getQuery ());
 		
 		long startTime, endTime;
-		startTime = System.currentTimeMillis ();
+		startTime = System.nanoTime ();
 		ResultSet rs = dbc.executeQuery (getQuery ());
-		endTime = System.currentTimeMillis ();
+		endTime = System.nanoTime ();
 		
 		setDuration ((endTime - startTime));
 		

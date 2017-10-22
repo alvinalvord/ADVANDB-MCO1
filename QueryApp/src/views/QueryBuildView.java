@@ -36,7 +36,7 @@ public class QueryBuildView extends BorderPane implements View {
 		rv.setQueryPrev(preview);
 	}
 	
-	public void setDuration(double duration){
+	public void setDuration(long duration){
 		rv.setDuration(duration);
 	}
 	

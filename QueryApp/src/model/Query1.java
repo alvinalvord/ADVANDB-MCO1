@@ -93,9 +93,9 @@ public class Query1 extends QueryObject {
 //		System.out.println (getQuery ());
 		
 		long startTime, endTime;
-		startTime = System.currentTimeMillis ();
+		startTime = System.nanoTime ();
 		ResultSet rs = dbc.executeQuery (variants.get(viewing));
-		endTime = System.currentTimeMillis ();
+		endTime = System.nanoTime ();
 		
 		setDuration ((endTime - startTime));
 		
