@@ -8,6 +8,7 @@ import javafx.collections.*;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import model.*;
 import controllers.*;
@@ -108,6 +109,7 @@ public class ResultsView extends VBox implements View{
 	private void initQueryPreview(){
 		// a e s t h e t i c c
 		queryPrev.setMaxWidth(Double.MAX_VALUE);
+		queryPrev.setAlignment(Pos.CENTER_LEFT);
 		queryPrev.setId("lbl");
 	}
 
