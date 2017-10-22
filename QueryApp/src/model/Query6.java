@@ -7,7 +7,7 @@ public class Query6 extends QueryObject {
 	public Query6 () {
 		super ();
 		initVariants ();
-		table = new Table ("Title", "PublisherName");
+		table = new Table ("Borrower Last Name", "Card No", "Title");
 		setViewing (0);
 	}
 	
@@ -95,7 +95,7 @@ public class Query6 extends QueryObject {
 		setDuration ((endTime - startTime));
 		
 		while (rs.next ()) {
-			table.addRowItem (new RowItem (rs.getString (1), rs.getString (2)));
+			table.addRowItem (new RowItem (rs.getString (1), rs.getString (2), rs.getString (3)));
 		}
 		
 		notifyViews ();
