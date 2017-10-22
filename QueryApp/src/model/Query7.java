@@ -19,6 +19,14 @@ public class Query7 extends QueryObject {
 			"bl.BranchID = lb.BranchID and \n\t" +
 			"bl.CardNo = bo.CardNo and " + 
 			"b.PublisherName like '%Press%' and lb.branchname like '%Silver%'");
+		variants.add
+			("SELECT b.bookid, b.title, lb.branchname, bo.borrowerlname \n" + 
+			"FROM (select BookID, title from book where PublisherName like '%Press%') as b, \n" +
+			"book_loans bl, \n" + 
+			"(select branchid, branchname from library_branch where branchname like '%Silver%') as lb, \n" + 
+			"borrower bo \n" +
+			"WHERE b.bookid = bl.bookid and bl.BranchID = lb.BranchID and \n" + 
+			"bl.CardNo = bo.CardNo");
 	}
 	
 	public void prepareUpdates () throws Exception {
