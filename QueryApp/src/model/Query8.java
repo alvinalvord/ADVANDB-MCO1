@@ -35,6 +35,7 @@ public class Query8 extends QueryObject {
 		
 		setQuery(variants.get(viewing));
 		
+		switch (viewing) {
 			case 1:
 				setQuery (getQuery ());
 				break;
