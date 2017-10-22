@@ -36,8 +36,6 @@ public class Query8 extends QueryObject {
 			"WHERE b.BookID = ba.BookID and b.BookID = bl.BookID and \n\t" +
 			"bl.BranchID = lb.BranchID and bl.CardNo = bo.CardNo and \n\t" + 
 			"b.PublisherName = p.PublisherName \nGROUP BY 1");
-		variants.add 
-			()
 	}
 	
 	public void prepareUpdates () throws Exception {
