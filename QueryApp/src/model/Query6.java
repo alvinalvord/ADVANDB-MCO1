@@ -28,7 +28,7 @@ public class Query6 extends QueryObject {
 		
 		long startTime, endTime;
 		startTime = System.nanoTime ();
-		ResultSet rs = dbc.executeQuery (getQuery ());
+		ResultSet rs = dbc.executeQuery (variants.get(viewing));
 		endTime = System.nanoTime ();
 		
 		setDuration ((endTime - startTime));

@@ -90,7 +90,6 @@ public class Query1 extends QueryObject {
 			break;
 		}
 		
-//		System.out.println (getQuery ());
 		
 		long startTime, endTime;
 		startTime = System.nanoTime ();

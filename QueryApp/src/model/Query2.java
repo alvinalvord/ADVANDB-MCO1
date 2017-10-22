@@ -12,21 +12,118 @@ public class Query2 extends QueryObject {
 	}
 	
 	private void initVariants () {
+		variants.add("select BookID, DateOut, DateReturned"
+				+ " from book_loans"
+				+ " where DateOut >= '2011-07-07' AND" 
+                + " DateReturned <= '2012-07-10' AND"
+                + " DateOut <= DateReturned");
 		variants.add("select b.BookID, b.DateOut, b.DateReturned from (select BookID, DateOut, DateReturned"
 				+ " from book_loans" 
 				+ " where DateOut >= '2011-07-07' AND"
                 + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b;");
+                + " DateOut <= DateReturned) as b");
+		variants.add("select * from"
+				+ " (select BookID, DateOut, DateReturned"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ " (select *"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ " (select *"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ " (select *"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ " (select *"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ " (select *"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ " (select *"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ " (select *"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ " (select *"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b");
 	}
 	
 	public void prepareUpdates () throws Exception {
 		table.removeAllRowItems ();
 		
+		try{dbc.executeUpdate("drop index a on book_loans");} catch(Exception e){}
+		try{dbc.executeUpdate("drop index b on book_loans");}catch(Exception e){}
+		try{dbc.executeUpdate("drop index c on book_loans");}catch(Exception e){}
+		
 		setQuery(variants.get(viewing));
+		
+		switch(viewing){
+		case 4: 
+			dbc.executeUpdate("create index a on book_loans(BookID)");
+			setQuery("create index a on book_loans(BookID);\n" + getQuery());
+			break;
+		case 5:
+			dbc.executeUpdate("create index a on book_loans(DateOut)");
+			setQuery("create index a on book_loans(DateOut);\n" + getQuery());
+			break;
+		case 6:
+			dbc.executeUpdate("create index a on book_loans(DateReturned)");
+			setQuery("create index a on book_loans(DateReturned);\n" + getQuery());
+			break;
+		case 7:
+			dbc.executeUpdate("create index b on book_loans(DateOut)");
+			dbc.executeUpdate("create index c on book_loans(DateReturned)");
+			setQuery("create index b on book_loans(DateOut);\ncreate index c on book_loans(DateReturned);\n" + getQuery());
+			break;
+		case 8:
+			dbc.executeUpdate("create index a on book_loans(BookID)");
+			dbc.executeUpdate("create index b on book_loans(DateOut)");
+			dbc.executeUpdate("create index c on book_loans(DateReturned)");
+			setQuery("create index a on book_loans(BookID);\ncreate index b on book_loans(DateOut);\ncreate index c on book_loans(DateReturned);\n" + getQuery());
+			break;
+		case 9:
+			dbc.executeUpdate("create index a on book_loans(BookId, DateOut, DateReturned)");
+			setQuery("create index a on book_loans(BookID, DateOut, DateReturned);\n" + getQuery());
+			break;
+		case 10:
+			dbc.executeUpdate("create index a on book_loans(DateOut, DateReturned)");
+			setQuery("create index a on book_loans(DateOut, DateReturned);\n" + getQuery());
+			break;
+		}
 		
 		long startTime, endTime;
 		startTime = System.nanoTime ();
-		ResultSet rs = dbc.executeQuery (getQuery ());
+		ResultSet rs = dbc.executeQuery (variants.get(viewing));
 		endTime = System.nanoTime ();
 		
 		setDuration ((endTime - startTime));
