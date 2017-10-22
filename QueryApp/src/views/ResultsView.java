@@ -4,16 +4,13 @@ import com.sun.javafx.tk.FontMetrics;
 import com.sun.javafx.tk.Toolkit;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
-import model.AbstractFactory;
-import model.FactoryProducer;
-import model.QueryObject;
-import model.RowItem;
+import model.*;
+import controllers.*;
 import javafx.scene.control.*;
 import javafx.scene.control.TableView.ResizeFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,10 +22,13 @@ public class ResultsView extends VBox implements View{
 	private Label duration;
 	private TableView<RowItem> resultsTable;
 	private QueryObject qo;
+	private ViewController vc;
 	
-	public ResultsView(){
+	public ResultsView(ViewController vc){
 		super(20);
 
+		this.vc = vc;
+		
 		this.setPadding(new Insets(20));
 		this.setAlignment(Pos.TOP_RIGHT);
 		this.setMaxWidth(width);
@@ -52,20 +52,7 @@ public class ResultsView extends VBox implements View{
 		initDuration();
 		addChildren();
 	}
-
-	public ResultsView(String queryPrev, double d, int numOfQueries){
-		this();
-
-		// create Query Preview box
-		setQueryPrev(queryPrev);
-
-		// create Duration display box
-		setDuration(d);
-		
-		initQuerySelection(numOfQueries);
-	}
-
-
+	
 	public ChoiceBox<String> getQuerySelection() {
 		return querySelection;
 	}
@@ -87,7 +74,7 @@ public class ResultsView extends VBox implements View{
 	}
 
 	public void setDuration(double duration) {
-		this.duration.setText(this.duration.getText() + duration + "s");
+		this.duration.setText("Duration: " + duration + "ms");
 	}
 
 	public TableView<RowItem> getResultsTable() {
@@ -99,9 +86,13 @@ public class ResultsView extends VBox implements View{
 	}
 	
 	public void initQuerySelection(int numOfQueries){		
-		
 		// create drop down
 		this.querySelection = new ChoiceBox<String>();
+		
+		// add values to dropdown list
+		for(int i = 1; i <= numOfQueries; i++){
+			this.querySelection.getItems().add("Variant " + i);
+		}
 		
 		querySelection.getSelectionModel ().selectedItemProperty ().addListener ( (a,b,c) ->
 		{
@@ -110,14 +101,8 @@ public class ResultsView extends VBox implements View{
 		}
 		);
 		
-		// add values to dropdown list
-		for(int i = 1; i <= numOfQueries; i++){
-			this.querySelection.getItems().add("Variant " + i);
-		}
-
 		// a e s t h e t i c c
 		querySelection.setValue(querySelection.getItems().get(0));
-
 	}
 
 	private void initQueryPreview(){
@@ -141,11 +126,7 @@ public class ResultsView extends VBox implements View{
 	public void setTableItems(){
 		resultsTable.getColumns ().clear ();
 		
-		if (qo != null)
-			qo.detach (this);
-		
-		qo = FactoryProducer.getFactory(1).getQueryObject(1);
-		qo.attach (this);
+		qo = FactoryProducer.getFactory(1).getQueryObject(vc.getFactoryNumber ());
 		
 		ObservableList<RowItem> ol = qo.getTable().getRowItems();
 		FontMetrics fontMetrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(new Font("Roboto", 14));
@@ -165,11 +146,7 @@ public class ResultsView extends VBox implements View{
 
 	private void updateLabels () {
 		queryPrev.setText (qo.getQuery ());
-		duration.setText (qo.getDuration () + " ms");
-	}
-	
-	private void checkSelected(){
-		
+		setDuration (qo.getDuration ());
 	}
 	
 	public void update(){

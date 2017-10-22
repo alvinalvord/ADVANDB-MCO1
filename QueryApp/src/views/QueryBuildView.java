@@ -9,13 +9,10 @@ public class QueryBuildView extends BorderPane implements View {
 	private ViewController vc;
 	
 	public QueryBuildView (ViewController vc) {
-		qsv = new QuerySelectView();
-		rv = new ResultsView();
-		
+		qsv = new QuerySelectView(vc);
+		rv = new ResultsView(vc);
 		this.vc = vc;
-		
 		this.setRight(qsv);
-		
 		this.setCenter(rv);
 	}
 	
@@ -37,17 +34,14 @@ public class QueryBuildView extends BorderPane implements View {
 
 	public void setQueryPreview(String preview){
 		rv.setQueryPrev(preview);
-		update();
 	}
 	
 	public void setDuration(double duration){
 		rv.setDuration(duration);
-		update();
 	}
 	
 	public void setNumOfQueries(int num){
 		rv.initQuerySelection(num);
-		update();
 	}
 	
 	public void update () {

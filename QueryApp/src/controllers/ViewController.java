@@ -6,11 +6,24 @@ import views.QueryBuildView;
 
 public class ViewController extends MainController {
 	
+	private int factoryNumber;
 	
 	public ViewController (Stage mainStage) {
 		super (mainStage);
+		factoryNumber = 1;
 		setQueries();
 		runQuery();
+	}
+	
+	public void changeFactory (int n) {
+		if (n >= 1 && n <=  8)
+			factoryNumber = n;
+		else
+			factoryNumber = 1;
+	}
+	
+	public int getFactoryNumber () {
+		return factoryNumber;
 	}
 	
 	public void setQueries(){
@@ -18,9 +31,12 @@ public class ViewController extends MainController {
 		
 		String[] s = new String[8];
 		
-		for(int i = 0; i < s.length; i++)
-			s[i] = FactoryProducer.getFactory(1).getQueryObject((i + 1)).getQuery();
-		
+		for(int i = 0; i < s.length; i++) {
+			QueryObject qo = FactoryProducer.getFactory(1)
+				.getQueryObject((i + 1));
+			s[i] = qo.getDefaultQuery();
+			qo.attach (q);
+		}
 		q.getQsv().setQueries(s);
 		
 		q.getRv().initQuerySelection(2);
@@ -44,7 +60,6 @@ public class ViewController extends MainController {
 	
 	protected void initViews () {
 		views.add (new QueryBuildView (this));
-		// you have to call QuerySelectView's setQueries to set the queries to be displayed upon expansion
 	}
 	
 	public void setScene (int n) {

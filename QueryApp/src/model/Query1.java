@@ -16,7 +16,7 @@ public class Query1 extends QueryObject {
 			("select title, publishername " +
 			"from book " +
 			"where publishername like '%bbc%'");
-			variants.add
+		variants.add
 			("select b.title, b.publishername " +
 			"from (select title, publishername from book where publishername like '%bbc%') as b");
 	}

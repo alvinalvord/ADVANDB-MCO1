@@ -1,41 +1,32 @@
 package views;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import controllers.*;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class QuerySelectView extends ScrollPane implements View{
+public class QuerySelectView extends ScrollPane implements View {
 	
+	private ViewController vc;
 	private VBox vb;
 	private ToggleButton[] buttons;
 	private String[] queries;
 	
-	public QuerySelectView(){
-		
+	public QuerySelectView(ViewController vc){
 		super();
 		
+		this.vc = vc;
 		this.setMinWidth(400);
 		this.setMaxWidth(400);
-		
 		this.setFitToWidth(true);
 		
 		initLayout();
-		
 		this.setContent(vb);
-		
 		this.getStylesheets().add("style.css");
-		
 		this.getStyleClass().add("QuerySelectView");
-		
 		this.setPadding(new Insets(0));
+		setVbarPolicy (ScrollPane.ScrollBarPolicy.ALWAYS);
 	}
 	
 	public void setQueries(String[] queries){
@@ -66,10 +57,11 @@ public class QuerySelectView extends ScrollPane implements View{
 		ToggleGroup tg = new ToggleGroup();
 		
 		for(int i = 0; i < buttons.length; i++){
-			int j = i;
+			final int j = i;
 			buttons[i] = new ToggleButton("Query " + (i+1));
 			buttons[i].setMinSize(320, 75);
 			buttons[i].setMaxHeight(Double.MAX_VALUE);
+			buttons[i].setMaxWidth (320);
 			buttons[i].getStylesheets().add("style.css");
 			buttons[i].setWrapText(true);
 			
@@ -81,6 +73,11 @@ public class QuerySelectView extends ScrollPane implements View{
 			buttons[i].setOnMouseExited(e -> {
 				if(!buttons[j].isSelected())
 					buttons[j].setText("Query " + (j + 1));
+			});
+			
+			buttons[i].setOnAction (e -> {
+				buttons[j].setSelected (true);
+				vc.changeFactory (j + 1);
 			});
 		}
 		
