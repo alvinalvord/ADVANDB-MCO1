@@ -27,6 +27,7 @@ public class QuerySelectView extends ScrollPane implements View {
 		this.getStyleClass().add("QuerySelectView");
 		this.setPadding(new Insets(0));
 		setVbarPolicy (ScrollPane.ScrollBarPolicy.ALWAYS);
+		
 	}
 	
 	public void setQueries(String[] queries){
@@ -82,7 +83,6 @@ public class QuerySelectView extends ScrollPane implements View {
 		}
 		
 		tg.getToggles().addAll(buttons);
-		
 	}
 
 	public VBox getVb() {

@@ -26,7 +26,7 @@ public class Query8 extends QueryObject {
 				"bo.Address like '%New York%' \n" + 
 				"GROUP BY 1");
 		variants.add
-			()
+			("");
 
 	}
 	
