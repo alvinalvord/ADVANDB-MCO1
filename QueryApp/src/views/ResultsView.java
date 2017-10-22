@@ -110,6 +110,7 @@ public class ResultsView extends VBox implements View{
 		// a e s t h e t i c c
 		queryPrev.setMaxWidth(Double.MAX_VALUE);
 		queryPrev.setAlignment(Pos.CENTER_LEFT);
+		queryPrev.setWrapText(true);
 		queryPrev.setId("lbl");
 	}
 

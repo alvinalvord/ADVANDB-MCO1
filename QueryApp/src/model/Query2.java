@@ -7,18 +7,16 @@ public class Query2 extends QueryObject {
 	public Query2 () {
 		super ();
 		initVariants ();
-		table = new Table ("Title", "PublisherName");
+		table = new Table ("BookID", "DateOut", "DateReturned");
 		setViewing (0);
 	}
 	
 	private void initVariants () {
-		variants.add
-			("select title, publishername " +
-			"from book " +
-			"where publishername like '%press%'");
-			variants.add
-			("select b.title, b.publishername " +
-			"from (select title, publishername from book where publishername like '%book%') as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned from (select BookID, DateOut, DateReturned"
+				+ " from book_loans" 
+				+ " where DateOut >= '2011-07-07' AND"
+                + " DateReturned <= '2012-07-10' AND "
+                + " DateOut <= DateReturned) as b;");
 	}
 	
 	public void prepareUpdates () throws Exception {
@@ -35,7 +33,7 @@ public class Query2 extends QueryObject {
 		setDuration ((endTime - startTime));
 		
 		while (rs.next ()) {
-			table.addRowItem (new RowItem (rs.getString (1), rs.getString (2)));
+			table.addRowItem (new RowItem (rs.getString (1), rs.getString (2), rs.getString(3)));
 		}
 		
 		notifyViews ();
