@@ -23,7 +23,7 @@ public class Table {
 	}
 	
 	public void removeAllRowItems () {
-		rowItems.removeAll ();
+		rowItems.removeAll (rowItems);
 	}
 	
 	public ObservableList <RowItem> getRowItems () {

@@ -24,6 +24,7 @@ public class ResultsView extends VBox implements View{
 	private Label queryPrev;
 	private Label duration;
 	private TableView<RowItem> resultsTable;
+	private QueryObject qo;
 	
 	public ResultsView(){
 		super(20);
@@ -38,8 +39,15 @@ public class ResultsView extends VBox implements View{
 		this.setId("bg");
 				
 		// create drop down
+		
 		this.querySelection = new ChoiceBox<String>();
-
+		querySelection.getSelectionModel ().selectedItemProperty ().addListener ( (a,b,c) ->
+		{
+			if (qo != null)
+				qo.setViewing (querySelection.getSelectionModel ().getSelectedIndex ());
+		}
+		);
+		
 		// create Query Preview box
 		this.queryPrev = new Label("Query Preview");
 
@@ -130,8 +138,15 @@ public class ResultsView extends VBox implements View{
 	}
 	
 	public void setTableItems(){
-		QueryObject qo = FactoryProducer.getFactory(1).getQueryObject(1);
-		final ObservableList<RowItem> ol = qo.getTable().getRowItems();
+		resultsTable.getColumns ().clear ();
+		
+		if (qo != null)
+			qo.detach (this);
+		
+		qo = FactoryProducer.getFactory(1).getQueryObject(1);
+		qo.attach (this);
+		
+		ObservableList<RowItem> ol = qo.getTable().getRowItems();
 		FontMetrics fontMetrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(new Font("Roboto", 14));
 		
 		for(int i = 0; i < qo.getTable().getHeaders().length; i++){
@@ -147,9 +162,15 @@ public class ResultsView extends VBox implements View{
 		resultsTable.setItems(ol);
 	}
 
+	private void updateLabels () {
+		queryPrev.setText (qo.getQuery ());
+		duration.setText (qo.getDuration () + " ms");
+	}
+	
 	public void update(){
-		getChildren().clear();
 		setTableItems();
+		updateLabels ();
+		getChildren().clear();
 		addChildren();
 	}
 }
