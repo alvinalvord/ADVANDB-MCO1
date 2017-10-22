@@ -15,10 +15,10 @@ public class Query1 extends QueryObject {
 		variants.add
 			("select title, publishername " +
 			"from book " +
-			"where publishername like '%book%'");
+			"where publishername like '%bbc%'");
 			variants.add
 			("select b.title, b.publishername " +
-			"from (select title, publishername from book where publishername like '%book%') as b");
+			"from (select title, publishername from book where publishername like '%bbc%') as b");
 	}
 	
 	public void prepareUpdates () throws Exception {

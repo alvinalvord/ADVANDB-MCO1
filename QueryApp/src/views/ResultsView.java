@@ -37,16 +37,8 @@ public class ResultsView extends VBox implements View{
 		
 		this.getStylesheets().add("style.css");
 		this.setId("bg");
-				
-		// create drop down
 		
-		this.querySelection = new ChoiceBox<String>();
-		querySelection.getSelectionModel ().selectedItemProperty ().addListener ( (a,b,c) ->
-		{
-			if (qo != null)
-				qo.setViewing (querySelection.getSelectionModel ().getSelectedIndex ());
-		}
-		);
+		initQuerySelection(1);
 		
 		// create Query Preview box
 		this.queryPrev = new Label("Query Preview");
@@ -55,8 +47,6 @@ public class ResultsView extends VBox implements View{
 		this.duration = new Label("Duration: ");
 		
 		this.resultsTable = new TableView<RowItem>();
-
-//		resultsTable.setColumnResizePolicy((param) -> true); 
 		
 		initQueryPreview();
 		initDuration();
@@ -109,6 +99,17 @@ public class ResultsView extends VBox implements View{
 	}
 	
 	public void initQuerySelection(int numOfQueries){		
+		
+		// create drop down
+		this.querySelection = new ChoiceBox<String>();
+		
+		querySelection.getSelectionModel ().selectedItemProperty ().addListener ( (a,b,c) ->
+		{
+			if (qo != null)
+				qo.setViewing (querySelection.getSelectionModel ().getSelectedIndex ());
+		}
+		);
+		
 		// add values to dropdown list
 		for(int i = 1; i <= numOfQueries; i++){
 			this.querySelection.getItems().add("Variant " + i);
@@ -168,11 +169,7 @@ public class ResultsView extends VBox implements View{
 	}
 	
 	private void checkSelected(){
-		for(int i = 0; i < querySelection.getItems().size(); i++){
-			if(querySelection.getValue() == querySelection.getItems().get(i)){
-//				queryPrev.setText(qo.setQuery(q));
-			}
-		}
+		
 	}
 	
 	public void update(){

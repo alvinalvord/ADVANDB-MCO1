@@ -71,31 +71,49 @@ public class QuerySelectView extends ScrollPane implements View{
 			buttons[i].setMinSize(320, 75);
 			buttons[i].setMaxHeight(Double.MAX_VALUE);
 			buttons[i].getStylesheets().add("style.css");
+			buttons[i].setWrapText(true);
 			
 			buttons[i].setOnMouseEntered(e -> {
-				buttons[j].setText(buttons[j].getText() + "\n\n" + queries[j]);
+				if(!buttons[j].isSelected())
+					buttons[j].setText(buttons[j].getText() + "\n\n" + queries[j]);
 			});
 			
 			buttons[i].setOnMouseExited(e -> {
-				buttons[j].setText("Query " + (j + 1));
+				if(!buttons[j].isSelected())
+					buttons[j].setText("Query " + (j + 1));
 			});
-
-			buttons[i].setOnMouseClicked(e -> update());
 		}
 		
 		tg.getToggles().addAll(buttons);
+		
+	}
+
+	public VBox getVb() {
+		return vb;
+	}
+
+	public void setVb(VBox vb) {
+		this.vb = vb;
+	}
+
+	public ToggleButton[] getButtons() {
+		return buttons;
+	}
+
+	public void setButtons(ToggleButton[] buttons) {
+		this.buttons = buttons;
+	}
+
+	public String[] getQueries() {
+		return queries;
 	}
 
 	// pag may kailangan ichange sa view
 	@Override
 	public void update() {
 		for(int j = 0; j < buttons.length; j++){
-			if(buttons[j].isSelected()){
-				buttons[j].setText(buttons[j].getText() + "\n\n" + queries[j]);
-			}
-			else{
+			if(!buttons[j].isSelected())
 				buttons[j].setText("Query " + (j + 1));
-			}
 		}
 		
 		vb.getChildren().clear();
