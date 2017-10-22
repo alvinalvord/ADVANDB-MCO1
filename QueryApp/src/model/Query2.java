@@ -13,69 +13,69 @@ public class Query2 extends QueryObject {
 	
 	private void initVariants () {
 		variants.add("select BookID, DateOut, DateReturned"
-				+ " from book_loans"
-				+ " where DateOut >= '2011-07-07' AND" 
-                + " DateReturned <= '2012-07-10' AND"
-                + " DateOut <= DateReturned");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from (select BookID, DateOut, DateReturned"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select * from"
+				+ " \nfrom book_loans"
+				+ " \nwhere DateOut >= '2011-07-07' AND" 
+                + " \n\tDateReturned <= '2012-07-10' AND"
+                + " \n\tDateOut <= DateReturned");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom (select BookID, DateOut, DateReturned"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select * \nfrom"
 				+ " (select BookID, DateOut, DateReturned"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom"
 				+ " (select *"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom"
 				+ " (select *"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom"
 				+ " (select *"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom"
 				+ " (select *"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom"
 				+ " (select *"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom"
 				+ " (select *"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom"
 				+ " (select *"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
-		variants.add("select b.BookID, b.DateOut, b.DateReturned from"
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
+		variants.add("select b.BookID, b.DateOut, b.DateReturned \nfrom"
 				+ " (select *"
-				+ " from book_loans" 
-				+ " where DateOut >= '2011-07-07' AND"
-                + " DateReturned <= '2012-07-10' AND "
-                + " DateOut <= DateReturned) as b");
+				+ "\n\t from book_loans" 
+				+ "\n\t where DateOut >= '2011-07-07' AND"
+                + "\n\t\t DateReturned <= '2012-07-10' AND "
+                + "\n\t\t DateOut <= DateReturned) as b");
 	}
 	
 	public void prepareUpdates () throws Exception {

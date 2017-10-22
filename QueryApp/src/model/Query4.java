@@ -13,40 +13,40 @@ public class Query4 extends QueryObject {
 	
 	private void initVariants () {
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
-			+ "from borrower b, book_loans bl "
-			+ "where b.CardNo = bl.CardNo AND "
-			+ "b.BorrowerLName = 'Bluekiller'");
+			+ "\nfrom borrower b, book_loans bl "
+			+ "\nwhere b.CardNo = bl.CardNo AND "
+			+ "\n\tb.BorrowerLName = 'Bluekiller'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
-				+ "from borrower b natural join book_loans bl "
-				+ "where b.BorrowerLName = 'Bluekiller'");
-		variants.add("select BorrowerLName, CardNo, (select COUNT(*) " 
-				+ "from borrower b natural join book_loans bl "
-				+ "where b.BorrowerLName = 'Bluekiller')"
+				+ "\nfrom borrower b natural join book_loans bl "
+				+ "\nwhere b.BorrowerLName = 'Bluekiller'");
+		variants.add("select BorrowerLName, CardNo, \n\t(select COUNT(*) " 
+				+ "\n\t\tfrom borrower b natural join book_loans bl "
+				+ "\n\t\twhere b.BorrowerLName = 'Bluekiller')"
 				+ "as numBor "
-				+ "from borrower "
-				+ "where BorrowerLName = 'Bluekiller'");
+				+ "\nfrom borrower "
+				+ "\nwhere BorrowerLName = 'Bluekiller'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
-				+ "from borrower b inner join book_loans bl on b.CardNo = bl.CardNo "
-				+ "where b.BorrowerLName = 'Bluekiller'");
+				+ "\nfrom borrower b inner join book_loans bl on b.CardNo = bl.CardNo "
+				+ "\nwhere b.BorrowerLName = 'Bluekiller'");
 		variants.add("select BorrowerLName, CardNo, COUNT(*) as NumBor "
-				+ "from table1 "
-				+ "where BorrowerLName = 'Bluekiller'");
+				+ "\nfrom table1 "
+				+ "\nwhere BorrowerLName = 'Bluekiller'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
-				+ "from borrower b, book_loans bl "
-				+ "where b.CardNo = bl.CardNo AND "
-				+ "b.BorrowerLName = 'Bluekiller'");
+				+ "\nfrom borrower b, book_loans bl "
+				+ "\nwhere b.CardNo = bl.CardNo AND "
+				+ "\n\tb.BorrowerLName = 'Bluekiller'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
-				+ "from borrower b, book_loans bl "
-				+ "where b.CardNo = bl.CardNo AND "
-				+ "b.BorrowerLName = 'Bluekiller'");
+				+ "\nfrom borrower b, book_loans bl "
+				+ "\nwhere b.CardNo = bl.CardNo AND "
+				+ "\n\tb.BorrowerLName = 'Bluekiller'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
-				+ "from borrower b, book_loans bl "
-				+ "where b.CardNo = bl.CardNo AND "
-				+ "b.BorrowerLName = 'Bluekiller'");
+				+ "\nfrom borrower b, book_loans bl "
+				+ "\nwhere b.CardNo = bl.CardNo AND "
+				+ "\n\tb.BorrowerLName = 'Bluekiller'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
-				+ "from borrower b, book_loans bl "
-				+ "where b.CardNo = bl.CardNo AND "
-				+ "b.BorrowerLName = 'Bluekiller'");
+				+ "\nfrom borrower b, book_loans bl "
+				+ "\nwhere b.CardNo = bl.CardNo AND "
+				+ "\n\tb.BorrowerLName = 'Bluekiller'");
 	}
 	
 	public void prepareUpdates () throws Exception {

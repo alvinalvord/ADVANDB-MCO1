@@ -13,34 +13,34 @@ public class Query1 extends QueryObject {
 	
 	private void initVariants () {
 		variants.add
-			("select title, publishername " +
-			"from book " +
+			("select title, publishername \n" +
+			"from book \n" +
 			"where publishername = 'BBC Books'");
-		variants.add("select b.title, b.publishername " +
-				"from(" + 
+		variants.add("select b.title, b.publishername \n" +
+				"from (" + 
 				"select title, publishername " + 
 				"from book " + 
 				"where publishername = 'BBC Books') as b");
 		variants.add(
-				"select title, publishername " +
-				"from book " +
+				"select title, publishername \n" +
+				"from book \n" +
 				"where publishername = 'BBC Books'");
-		variants.add("select title, publishername " +
-				"from book " +
+		variants.add("select title, publishername \n" +
+				"from book \n" +
 				"where publishername = 'BBC Books'");
-		variants.add("select title, publishername " +
-				"from book " +
+		variants.add("select title, publishername \n" +
+				"from book \n" +
 				"where publishername = 'BBC Books'");
-		variants.add("select title, publishername " +
-				"from book " +
+		variants.add("select title, publishername \n" +
+				"from book \n" +
 				"where publishername = 'BBC Books'");
-		variants.add("select b.title, b.publishername " +
+		variants.add("select b.title, b.publishername \n" +
 				"from (select title, publishername from book where publishername = 'BBC Books') as b");
-		variants.add("select b.title, b.publishername " +
+		variants.add("select b.title, b.publishername \n" +
 				"from (select title, publishername from book where publishername = 'BBC Books') as b");
-		variants.add("select b.title, b.publishername " +
+		variants.add("select b.title, b.publishername \n" +
 				"from (select title, publishername from book where publishername = 'BBC Books') as b");
-		variants.add("select b.title, b.publishername " +
+		variants.add("select b.title, b.publishername \n" +
 				"from (select title, publishername from book where publishername = 'BBC Books') as b");
 	}
 	

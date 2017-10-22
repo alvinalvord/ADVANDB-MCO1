@@ -14,44 +14,44 @@ public class Query3 extends QueryObject {
 	private void initVariants () {
 		variants.add
 			("SELECT b.BookID, b.Title, ba.AuthorLastName "
-			+ "FROM book b, book_authors ba "
-			+ "WHERE b.BookID = ba.BookID AND " 
-			+ "ba.AuthorLastName = 'Twodream'");
+			+ "\nFROM book b, book_authors ba "
+			+ "\nWHERE b.BookID = ba.BookID AND " 
+			+ "\n\tba.AuthorLastName = 'Twodream'");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
-		+ "FROM book b, (SELECT BookID, AuthorLastName FROM book_authors WHERE AuthorLastName  "
+		+ "\nFROM book b, \n\t(SELECT BookID, AuthorLastName \n\t\tFROM book_authors \n\t\tWHERE AuthorLastName  "
 		+ "= 'Twodream') as ba " 
-		+ "WHERE b.BookID = ba.BookID");
+		+ "\nWHERE b.BookID = ba.BookID");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
-		+ "FROM book b, book_authors ba "
-		+ "WHERE b.BookID = ba.BookID AND " 
-		+ "ba.AuthorLastName = 'Twodream'");
+		+ "\nFROM book b, book_authors ba "
+		+ "\nWHERE b.BookID = ba.BookID AND " 
+		+ "\n\tba.AuthorLastName = 'Twodream'");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
-		+ "FROM book b, book_authors ba "
-		+ "WHERE b.BookID = ba.BookID AND " 
-		+ "ba.AuthorLastName = 'Twodream'");
+		+ "\nFROM book b, book_authors ba "
+		+ "\nWHERE b.BookID = ba.BookID AND " 
+		+ "\n\tba.AuthorLastName = 'Twodream'");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
-		+ "FROM book b, book_authors ba "
-		+ "WHERE b.BookID = ba.BookID AND " 
-		+ "ba.AuthorLastName = 'Twodream'");
+		+ "\nFROM book b, book_authors ba "
+		+ "\nWHERE b.BookID = ba.BookID AND " 
+		+ "\n\tba.AuthorLastName = 'Twodream'");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
-		+ "FROM book b, (SELECT BookID, AuthorLastName FROM book_authors WHERE AuthorLastName  "
+		+ "\nFROM book b, \n\t(SELECT BookID, AuthorLastName \n\t\tFROM book_authors \n\t\tWHERE AuthorLastName  "
 		+ "= 'Twodream') as ba " 
-		+ "WHERE b.BookID = ba.BookID");
+		+ "\nWHERE b.BookID = ba.BookID");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
-		+ "FROM book b, (SELECT BookID, AuthorLastName FROM book_authors WHERE AuthorLastName  "
+		+ "\nFROM book b, \n\t(SELECT BookID, AuthorLastName \n\t\tFROM book_authors \n\t\tWHERE AuthorLastName  "
 		+ "= 'Twodream') as ba " 
-		+ "WHERE b.BookID = ba.BookID");
+		+ "\nWHERE b.BookID = ba.BookID");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
-		+ "FROM book b, (SELECT BookID, AuthorLastName FROM book_authors WHERE AuthorLastName  "
+		+ "\nFROM book b, \n\t(SELECT BookID, AuthorLastName \n\t\tFROM book_authors \n\t\tWHERE AuthorLastName  "
 		+ "= 'Twodream') as ba " 
-		+ "WHERE b.BookID = ba.BookID");
+		+ "\nWHERE b.BookID = ba.BookID");
 	}
 	
 	public void prepareUpdates () throws Exception {
