@@ -8,6 +8,7 @@ public class ViewController extends MainController {
 	public ViewController (Stage mainStage) {
 		super (mainStage);
 		aaAAA();
+		
 	}
 	
 	public void aaAAA(){

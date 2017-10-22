@@ -167,6 +167,14 @@ public class ResultsView extends VBox implements View{
 		duration.setText (qo.getDuration () + " ms");
 	}
 	
+	private void checkSelected(){
+		for(int i = 0; i < querySelection.getItems().size(); i++){
+			if(querySelection.getValue() == querySelection.getItems().get(i)){
+//				queryPrev.setText(qo.setQuery(q));
+			}
+		}
+	}
+	
 	public void update(){
 		setTableItems();
 		updateLabels ();

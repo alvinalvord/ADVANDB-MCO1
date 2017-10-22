@@ -66,14 +66,21 @@ public class QuerySelectView extends ScrollPane implements View{
 		ToggleGroup tg = new ToggleGroup();
 		
 		for(int i = 0; i < buttons.length; i++){
+			int j = i;
 			buttons[i] = new ToggleButton("Query " + (i+1));
 			buttons[i].setMinSize(320, 75);
 			buttons[i].setMaxHeight(Double.MAX_VALUE);
 			buttons[i].getStylesheets().add("style.css");
 			
-			buttons[i].setOnMouseClicked(e -> {
-				update();
+			buttons[i].setOnMouseEntered(e -> {
+				buttons[j].setText(buttons[j].getText() + "\n\n" + queries[j]);
 			});
+			
+			buttons[i].setOnMouseExited(e -> {
+				buttons[j].setText("Query " + (j + 1));
+			});
+
+			buttons[i].setOnMouseClicked(e -> update());
 		}
 		
 		tg.getToggles().addAll(buttons);
