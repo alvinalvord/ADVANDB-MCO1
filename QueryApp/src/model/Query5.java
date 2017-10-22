@@ -19,7 +19,7 @@ public class Query5 extends QueryObject {
 		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM book_loans bl, library_branch lb, table1 as b \nWHERE lb.BranchID = bl.BranchID AND bl.CardNo = b.CardNo \nGROUP BY 3");
 		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM book_loans bl, library_branch lb, table1 as b \nWHERE lb.BranchID = bl.BranchID AND bl.CardNo = b.CardNo \nGROUP BY 3");
 		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM (book_loans bl natural join library_branch lb) natural join \n\t((SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%') as b) \nGROUP BY 3");
-		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress\nFROM (book_loans bl natural join library_branch lb) natural join \n\t((SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLNameLIKE '%" + input + "%') as b) \nGROUP BY 3");
+		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress\nFROM (book_loans bl natural join library_branch lb) natural join \n\t((SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%') as b) \nGROUP BY 3");
 		variants.add ("SELECT BorrowerLName, table1.CardNo, BranchName, BranchAddress \nFROM (book_loans bl natural join library_branch lb) natural join table1 \nGROUP BY 3");
 	}
 	

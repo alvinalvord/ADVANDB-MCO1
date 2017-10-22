@@ -13,6 +13,7 @@ public class Query8 extends QueryObject {
 	}
 	
 	private void initVariants () {
+		variants.clear();
 		variants.add
 			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName \n" + 
 			"FROM book b, book_authors ba, book_loans bl, " + 
@@ -24,7 +25,7 @@ public class Query8 extends QueryObject {
 				"b.PublisherName = p.PublisherName and " +
 				"lb.BranchAddress like '%" + input + "%' and \n\t" +
 				"p.Address like '%" + input + "%' and " + 
-				"bo.Address like '%" + input + "' \n" + 
+				"bo.Address like '%" + input + "%' \n" + 
 				"GROUP BY 1");
 		variants.add
 			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName \n" + 
@@ -33,7 +34,7 @@ public class Query8 extends QueryObject {
 			"(select bookid, branchid, cardno from book_loans) as bl, \n\t" +
 			"(select branchid from library_branch where BranchAddress like '%" + input + "%') as lb, \n\t" +
 			"(select cardno, borrowerlname from borrower where address like '%" + input + "%') as bo, \n\t" +
-			"(select publishername, address from publisher where address like '" + input + "%') as p \n" +
+			"(select publishername, address from publisher where address like '%" + input + "%') as p \n" +
 			"WHERE b.BookID = ba.BookID and b.BookID = bl.BookID and \n\t" +
 			"bl.BranchID = lb.BranchID and bl.CardNo = bo.CardNo and \n\t" + 
 			"b.PublisherName = p.PublisherName \nGROUP BY 1");
@@ -70,6 +71,8 @@ public class Query8 extends QueryObject {
 	
 	public void prepareUpdates () throws Exception {
 		table.removeAllRowItems ();
+		
+		initVariants ();
 		
 		setQuery(variants.get(viewing));
 		
