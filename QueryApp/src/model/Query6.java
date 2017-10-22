@@ -13,18 +13,79 @@ public class Query6 extends QueryObject {
 	
 	private void initVariants () {
 		variants.add
-			("select title, publishername " +
-			"from book " +
-			"where publishername like '%book%'");
-			variants.add
-			("select b.title, b.publishername " +
-			"from (select title, publishername from book where publishername like '%book%') as b");
+		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
+				+ "FROM book_loans bl, book bo, \n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove') as b\n" 
+				+ "WHERE bo.BookID = bl.BookID AND bl.CardNo = b.CardNo\n"
+				+ "Group BY 3");
+		variants.add
+		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
+				+ "FROM book_loans bl, book bo, table1 b\n" 
+				+ "WHERE bo.BookID = bl.BookID AND bl.CardNo = b.CardNo\n"
+				+ "Group BY 3");
+		variants.add
+		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
+				+ "FROM book_loans bl, book bo, \n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove') as b\n" 
+				+ "WHERE bo.BookID = bl.BookID AND bl.CardNo = b.CardNo\n"
+				+ "Group BY 3");
+		variants.add
+		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
+				+ "FROM book_loans bl, book bo, table1 b\n" 
+				+ "WHERE bo.BookID = bl.BookID AND bl.CardNo = b.CardNo\n"
+				+ "Group BY 3");
+		variants.add
+		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
+				+ "FROM book_loans bl natural join book bo natural "
+				+ "join((SELECT CardNo, BorrowerLName FROM borrower\n"
+				+ "WHERE BorrowerLName = 'Hellgrove') as b)\n"
+				+ "Group BY 3");
+		variants.add
+		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
+				+ "FROM book_loans bl natural join book bo natural join table1 b\n"
+				+ "GROUP BY 3");
+		variants.add
+		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
+				+ "FROM book_loans bl natural join book bo natural join table1 b\n"
+				+ "GROUP BY 3");
 	}
 	
 	public void prepareUpdates () throws Exception {
 		table.removeAllRowItems ();
 		
 		setQuery(variants.get(viewing));
+		
+		try{dbc.executeUpdate("drop index a on borrower");}catch(Exception e){}
+		try{dbc.executeUpdate("drop index c on book_loans");}catch(Exception e){}
+		
+		switch(viewing){
+		case 1:
+			dbc.executeUpdate("create temporary table if not exists table1 as " +
+					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
+			setQuery("CREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove');\n" + getQuery());
+			break;
+		case 2:
+			dbc.executeUpdate("create index a on borrower(cardNo)");
+			dbc.executeUpdate("create index c on book_loans(BookID)");
+			setQuery("CREATE index a on borrower(cardNo);\nCREATE index b on book_loans(BookID);\n" + getQuery());
+			break;
+		case 3:
+			dbc.executeUpdate("create temporary table if not exists table1 as " +
+					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
+			dbc.executeUpdate("create index a on borrower(cardNo)");
+			dbc.executeUpdate("create index c on book_loans(BookID)");
+			setQuery("CREATE index a on borrower(cardNo);\nCREATE index b on book_loans(BookID);\nCREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove');\n" + getQuery());
+			break;
+		case 5:
+			dbc.executeUpdate("create temporary table if not exists table1 as " +
+					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
+			setQuery("CREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove');\n" + getQuery());
+			break;
+		case 6:
+			dbc.executeUpdate("create index a on borrower(borrowerLName)");
+			dbc.executeUpdate("create temporary table if not exists table1 as " +
+					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
+			setQuery("CREATE index a on borrower(borrowerLName);\nCREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove');\n" + getQuery());
+			break;
+		}
 		
 		long startTime, endTime;
 		startTime = System.nanoTime ();
