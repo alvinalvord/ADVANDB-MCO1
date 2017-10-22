@@ -7,7 +7,7 @@ import javafx.application.Platform;
 import javafx.collections.*;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
+import javafx.scene.text.*;
 import javafx.util.Callback;
 import model.*;
 import controllers.*;

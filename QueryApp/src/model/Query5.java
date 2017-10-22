@@ -25,7 +25,6 @@ public class Query5 extends QueryObject {
 		table.removeAllRowItems ();
 		
 		setQuery(variants.get(viewing));
-		System.out.println (getQuery ());
 		
 		long startTime, endTime;
 		startTime = System.currentTimeMillis ();
