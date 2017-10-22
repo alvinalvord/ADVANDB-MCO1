@@ -61,6 +61,10 @@ public abstract class QueryObject extends Model {
 		return table;
 	}
 	
+	public String getDefaultQuery () {
+		return variants.get (0);
+	}
+	
 	public int countVariants () {
 		return variants.size ();
 	}
