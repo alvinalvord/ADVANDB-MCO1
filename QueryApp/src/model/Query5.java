@@ -6,23 +6,27 @@ public class Query5 extends QueryObject {
 	
 	public Query5 () {
 		super ();
+		input = "Hellgrove";
 		initVariants ();
 		table = new Table ("Borrower Last Name", "Card Number", "Branch Name", "Branch Address");
 		setViewing (0);
 	}
 	
 	private void initVariants () {
-		variants.add("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM book_loans bl, library_branch lb, \n\t(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove') as b \nWHERE lb.BranchID = bl.BranchID AND bl.CardNo = b.CardNo \nGROUP BY 3");
-		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM book_loans bl, library_branch lb, \n\t(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove') as b \nWHERE lb.BranchID = bl.BranchID AND bl.CardNo = b.CardNo \nGROUP BY 3");
+		variants.clear();
+		variants.add("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM book_loans bl, library_branch lb, \n\t(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%') as b \nWHERE lb.BranchID = bl.BranchID AND bl.CardNo = b.CardNo \nGROUP BY 3");
+		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM book_loans bl, library_branch lb, \n\t(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%') as b \nWHERE lb.BranchID = bl.BranchID AND bl.CardNo = b.CardNo \nGROUP BY 3");
 		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM book_loans bl, library_branch lb, table1 as b \nWHERE lb.BranchID = bl.BranchID AND bl.CardNo = b.CardNo \nGROUP BY 3");
 		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM book_loans bl, library_branch lb, table1 as b \nWHERE lb.BranchID = bl.BranchID AND bl.CardNo = b.CardNo \nGROUP BY 3");
-		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM (book_loans bl natural join library_branch lb) natural join \n\t((SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove') as b) \nGROUP BY 3");
-		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress\nFROM (book_loans bl natural join library_branch lb) natural join \n\t((SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove') as b) \nGROUP BY 3");
+		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress \nFROM (book_loans bl natural join library_branch lb) natural join \n\t((SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%') as b) \nGROUP BY 3");
+		variants.add ("SELECT BorrowerLName, b.CardNo, BranchName, BranchAddress\nFROM (book_loans bl natural join library_branch lb) natural join \n\t((SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLNameLIKE '%" + input + "%') as b) \nGROUP BY 3");
 		variants.add ("SELECT BorrowerLName, table1.CardNo, BranchName, BranchAddress \nFROM (book_loans bl natural join library_branch lb) natural join table1 \nGROUP BY 3");
 	}
 	
 	public void prepareUpdates () throws Exception {
 		table.removeAllRowItems ();
+		
+		initVariants();
 		
 		setQuery(variants.get(viewing));
 		
@@ -36,14 +40,14 @@ public class Query5 extends QueryObject {
 			setQuery("create index a on book_loans(CardNo);\nCREATE index b on book_loans(BranchID);\n" + getQuery());
 			break;
 		case 2:
-			dbc.executeUpdate ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
-			setQuery ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove');\n" + getQuery ());
+			dbc.executeUpdate ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%')");
+			setQuery ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%');\n" + getQuery ());
 			break;
 		case 3:
-			dbc.executeUpdate ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
+			dbc.executeUpdate ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%')");
 			dbc.executeUpdate ("create index a on book_loans(BranchID)");
 			dbc.executeUpdate ("create index b on book_loans(CardNo)");
-			setQuery ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove');\ncreate index a on book_loans(BranchID);\ncreate index b on book_loans(CardNo);\n" + getQuery ());
+			setQuery ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%');\ncreate index a on book_loans(BranchID);\ncreate index b on book_loans(CardNo);\n" + getQuery ());
 			break;
 		case 5:
 			dbc.executeUpdate ("create index a on book_loans(BranchID)");
@@ -51,7 +55,7 @@ public class Query5 extends QueryObject {
 			setQuery ("create index a on book_loans(BranchID);\ncreate index b on book_loans(CardNo);\n"+getQuery ());
 			break;
 		case 6:
-			dbc.executeUpdate ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
+			dbc.executeUpdate ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%')");
 			dbc.executeUpdate ("create index a on book_loans(BranchID)");
 			dbc.executeUpdate ("create index b on book_loans(CardNo)");
 			setQuery ("create temporary table if not exists table1 as (SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove');\ncreate index a on book_loans(BranchID);\ncreate index b on book_loans(CardNo);\n"+getQuery ());

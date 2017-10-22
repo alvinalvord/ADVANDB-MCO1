@@ -39,9 +39,10 @@ public class ViewController extends MainController {
 		}
 		q.getQsv().setQueries(s);
 		
-		q.getRv().initQuerySelection(2);
+		q.getRv().initQuerySelection(FactoryProducer.getFactory(1)
+				.getQueryObject(1).countVariants());
 		
-		q.update();
+		updateViews();
 	}
 	
 	public void runQuery(){
@@ -53,9 +54,14 @@ public class ViewController extends MainController {
 				QueryObject qo = FactoryProducer.getFactory(1).getQueryObject((j + 1));
 				q.getRv().setQueryPrev(qo.getQuery());
 				q.getRv().initQuerySelection(qo.countVariants());
-				q.update();
+				updateViews();
 			});
 		}
+	}
+	
+	public void updateViews(){
+		QueryBuildView q = (QueryBuildView) views.get(0);
+		q.update();
 	}
 	
 	protected void initViews () {

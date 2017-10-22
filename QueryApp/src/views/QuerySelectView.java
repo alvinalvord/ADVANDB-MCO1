@@ -46,6 +46,7 @@ public class QuerySelectView extends ScrollPane implements View {
 			double vvalue = this.getVvalue();
 			this.setVvalue(vvalue + -deltaY/width);
 		});
+		
 		vb.setId("selection");
 		
 		initButtons();

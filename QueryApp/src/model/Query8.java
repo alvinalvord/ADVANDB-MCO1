@@ -6,6 +6,7 @@ public class Query8 extends QueryObject {
 	
 	public Query8 () {
 		super ();
+		input = "New York";
 		initVariants ();
 		table = new Table ("Borrower Last Name", "Book ID", "Author Last Name");
 		setViewing (0);
@@ -21,23 +22,23 @@ public class Query8 extends QueryObject {
 				"bl.BranchID = lb.BranchID and " +
 				"bl.CardNo = bo.CardNo and \n\t" +
 				"b.PublisherName = p.PublisherName and " +
-				"lb.BranchAddress like '%New York%' and \n\t" +
-				"p.Address like '%New York%' and " + 
-				"bo.Address like '%New York%' \n" + 
+				"lb.BranchAddress like '%" + input + "%' and \n\t" +
+				"p.Address like '%" + input + "%' and " + 
+				"bo.Address like '%" + input + "' \n" + 
 				"GROUP BY 1");
 		variants.add
 			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName \n" + 
 			"FROM (select bookid, PublisherName from book) as b, \n\t" +
 			"(select bookid, authorlastname from book_authors) as ba, \n\t" +
 			"(select bookid, branchid, cardno from book_loans) as bl, \n\t" +
-			"(select branchid from library_branch where BranchAddress like '%New York%') as lb, \n\t" +
-			"(select cardno, borrowerlname from borrower where address like '%New York%') as bo, \n\t" +
-			"(select publishername, address from publisher where address like '%New York%') as p \n" +
+			"(select branchid from library_branch where BranchAddress like '%" + input + "%') as lb, \n\t" +
+			"(select cardno, borrowerlname from borrower where address like '%" + input + "%') as bo, \n\t" +
+			"(select publishername, address from publisher where address like '" + input + "%') as p \n" +
 			"WHERE b.BookID = ba.BookID and b.BookID = bl.BookID and \n\t" +
 			"bl.BranchID = lb.BranchID and bl.CardNo = bo.CardNo and \n\t" + 
 			"b.PublisherName = p.PublisherName \nGROUP BY 1");
 		variants.add
-			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName\nFROM \n\t(((((select bookid, PublisherName from book) as b natural join \n\t\t(select bookid, authorlastname from book_authors) as ba) natural join \n\t\t(select bookid, branchid, cardno from book_loans) as bl) natural join \n\t\t(select branchid from library_branch where BranchAddress like '%New York%') as lb) natural join \n\t\t(select cardno, borrowerlname from borrower where address like '%New York%') as bo) natural join \n\t\t(select publishername, address from publisher where address like '%New York%') as p\nGROUP BY 1");
+			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName\nFROM \n\t(((((select bookid, PublisherName from book) as b natural join \n\t\t(select bookid, authorlastname from book_authors) as ba) natural join \n\t\t(select bookid, branchid, cardno from book_loans) as bl) natural join \n\t\t(select branchid from library_branch where BranchAddress like '%" + input + "%') as lb) natural join \n\t\t(select cardno, borrowerlname from borrower where address like '%" + input + "%') as bo) natural join \n\t\t(select publishername, address from publisher where address like '%" + input + "%') as p\nGROUP BY 1");
 			
 		variants.add
 			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName \n" + 
@@ -48,23 +49,23 @@ public class Query8 extends QueryObject {
 				"bl.BranchID = lb.BranchID and " +
 				"bl.CardNo = bo.CardNo and \n\t" +
 				"b.PublisherName = p.PublisherName and " +
-				"lb.BranchAddress like '%New York%' and \n\t" +
-				"p.Address like '%New York%' and " + 
-				"bo.Address like '%New York%' \n" + 
+				"lb.BranchAddress like '%" + input + "%' and \n\t" +
+				"p.Address like '%" + input + "%' and " + 
+				"bo.Address like '%" + input + "%' \n" + 
 				"GROUP BY 1");
 		variants.add
 			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName \n" + 
 			"FROM (select bookid, PublisherName from book) as b, \n\t" +
 			"(select bookid, authorlastname from book_authors) as ba, \n\t" +
 			"(select bookid, branchid, cardno from book_loans) as bl, \n\t" +
-			"(select branchid from library_branch where BranchAddress like '%New York%') as lb, \n\t" +
-			"(select cardno, borrowerlname from borrower where address like '%New York%') as bo, \n\t" +
-			"(select publishername, address from publisher where address like '%New York%') as p \n" +
+			"(select branchid from library_branch where BranchAddress like '%" + input + "%') as lb, \n\t" +
+			"(select cardno, borrowerlname from borrower where address like '%" + input + "%') as bo, \n\t" +
+			"(select publishername, address from publisher where address like '%" + input + "%') as p \n" +
 			"WHERE b.BookID = ba.BookID and b.BookID = bl.BookID and \n\t" +
 			"bl.BranchID = lb.BranchID and bl.CardNo = bo.CardNo and \n\t" + 
 			"b.PublisherName = p.PublisherName \nGROUP BY 1");
 		variants.add
-			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName\nFROM \n\t(((((select bookid, PublisherName from book) as b natural join \n\t\t(select bookid, authorlastname from book_authors) as ba) natural join \n\t\t(select bookid, branchid, cardno from book_loans) as bl) natural join \n\t\t(select branchid from library_branch where BranchAddress like '%New York%') as lb) natural join \n\t\t(select cardno, borrowerlname from borrower where address like '%New York%') as bo) natural join \n\t\t(select publishername, address from publisher where address like '%New York%') as p\nGROUP BY 1");
+			("SELECT bo.BorrowerLName, b.BookID, ba.AuthorLastName\nFROM \n\t(((((select bookid, PublisherName from book) as b natural join \n\t\t(select bookid, authorlastname from book_authors) as ba) natural join \n\t\t(select bookid, branchid, cardno from book_loans) as bl) natural join \n\t\t(select branchid from library_branch where BranchAddress like '%" + input + "%') as lb) natural join \n\t\t(select cardno, borrowerlname from borrower where address like '%" + input + "%') as bo) natural join \n\t\t(select publishername, address from publisher where address like '%" + input + "%') as p\nGROUP BY 1");
 	}
 	
 	public void prepareUpdates () throws Exception {

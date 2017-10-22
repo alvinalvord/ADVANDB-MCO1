@@ -14,7 +14,7 @@ public class Query6 extends QueryObject {
 	private void initVariants () {
 		variants.add
 		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
-				+ "FROM book_loans bl, book bo, \n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove') as b\n" 
+				+ "FROM book_loans bl, book bo, \n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName LIKE '%" + input + "%') as b\n" 
 				+ "WHERE bo.BookID = bl.BookID AND bl.CardNo = b.CardNo\n"
 				+ "Group BY 3");
 		variants.add
@@ -24,7 +24,7 @@ public class Query6 extends QueryObject {
 				+ "Group BY 3");
 		variants.add
 		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
-				+ "FROM book_loans bl, book bo, \n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove') as b\n" 
+				+ "FROM book_loans bl, book bo, \n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName LIKE '%" + input + "%') as b\n" 
 				+ "WHERE bo.BookID = bl.BookID AND bl.CardNo = b.CardNo\n"
 				+ "Group BY 3");
 		variants.add
@@ -36,7 +36,7 @@ public class Query6 extends QueryObject {
 		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
 				+ "FROM book_loans bl natural join book bo natural "
 				+ "join((SELECT CardNo, BorrowerLName FROM borrower\n"
-				+ "WHERE BorrowerLName = 'Hellgrove') as b)\n"
+				+ "WHERE BorrowerLName LIKE '%" + input + "%') as b)\n"
 				+ "Group BY 3");
 		variants.add
 		("SELECT BorrowerLName, b.CardNo, bo.Title\n"
@@ -59,8 +59,8 @@ public class Query6 extends QueryObject {
 		switch(viewing){
 		case 1:
 			dbc.executeUpdate("create temporary table if not exists table1 as " +
-					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
-			setQuery("CREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove');\n" + getQuery());
+					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%')");
+			setQuery("CREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName LIKE '%" + input + "%');\n" + getQuery());
 			break;
 		case 2:
 			dbc.executeUpdate("create index a on borrower(cardNo)");
@@ -69,21 +69,21 @@ public class Query6 extends QueryObject {
 			break;
 		case 3:
 			dbc.executeUpdate("create temporary table if not exists table1 as " +
-					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
+					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%')");
 			dbc.executeUpdate("create index a on borrower(cardNo)");
 			dbc.executeUpdate("create index c on book_loans(BookID)");
-			setQuery("CREATE index a on borrower(cardNo);\nCREATE index b on book_loans(BookID);\nCREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove');\n" + getQuery());
+			setQuery("CREATE index a on borrower(cardNo);\nCREATE index b on book_loans(BookID);\nCREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName LIKE '%" + input + "%');\n" + getQuery());
 			break;
 		case 5:
 			dbc.executeUpdate("create temporary table if not exists table1 as " +
-					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
+					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%')");
 			setQuery("CREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove');\n" + getQuery());
 			break;
 		case 6:
 			dbc.executeUpdate("create index a on borrower(borrowerLName)");
 			dbc.executeUpdate("create temporary table if not exists table1 as " +
-					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName = 'Hellgrove')");
-			setQuery("CREATE index a on borrower(borrowerLName);\nCREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName = 'Hellgrove');\n" + getQuery());
+					"(SELECT CardNo, BorrowerLName FROM borrower WHERE BorrowerLName LIKE '%" + input + "%')");
+			setQuery("CREATE index a on borrower(borrowerLName);\nCREATE temporary table if not exists table1 as\n\t(SELECT CardNo, BorrowerLName \n\tFROM borrower \n\tWHERE BorrowerLName LIKE '%" + input + "%');\n" + getQuery());
 			break;
 		}
 		

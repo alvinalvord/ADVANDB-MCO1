@@ -11,6 +11,7 @@ public abstract class QueryObject extends Model {
 	protected StringProperty query;
 	protected LongProperty duration;
 	protected Table table;
+	protected String input;
 	
 	public QueryObject () {
 		dbc = DBConnection.getConnection ();
@@ -19,6 +20,11 @@ public abstract class QueryObject extends Model {
 		query = new SimpleStringProperty ();
 		duration = new SimpleLongProperty ();
 		table = null;
+	}
+	
+	public void setInput(String input){
+		this.input = input;
+		setViewing(0);
 	}
 	
 	public StringProperty queryProperty () {

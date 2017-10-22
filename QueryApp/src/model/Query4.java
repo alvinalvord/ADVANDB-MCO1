@@ -6,51 +6,55 @@ public class Query4 extends QueryObject {
 	
 	public Query4 () {
 		super ();
+		input = "Bluekiller";
 		initVariants ();
 		table = new Table ("BorrowerLName", "CardNo", "numBor");
 		setViewing (0);
 	}
 	
 	private void initVariants () {
+		variants.clear();
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
 			+ "\nfrom borrower b, book_loans bl "
 			+ "\nwhere b.CardNo = bl.CardNo AND "
-			+ "\n\tb.BorrowerLName = 'Bluekiller'");
+			+ "\n\tb.BorrowerLName LIKE '%" + input + "%'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
 				+ "\nfrom borrower b natural join book_loans bl "
-				+ "\nwhere b.BorrowerLName = 'Bluekiller'");
+				+ "\nwhere b.BorrowerLName LIKE '%" + input + "%'");
 		variants.add("select BorrowerLName, CardNo, \n\t(select COUNT(*) " 
 				+ "\n\t\tfrom borrower b natural join book_loans bl "
-				+ "\n\t\twhere b.BorrowerLName = 'Bluekiller')"
+				+ "\n\t\twhere b.BorrowerLName LIKE '%" + input + "%')"
 				+ "as numBor "
 				+ "\nfrom borrower "
-				+ "\nwhere BorrowerLName = 'Bluekiller'");
+				+ "\nwhere BorrowerLName LIKE '%" + input + "%'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
 				+ "\nfrom borrower b inner join book_loans bl on b.CardNo = bl.CardNo "
-				+ "\nwhere b.BorrowerLName = 'Bluekiller'");
+				+ "\nwhere b.BorrowerLName LIKE '%" + input + "%'");
 		variants.add("select BorrowerLName, CardNo, COUNT(*) as NumBor "
 				+ "\nfrom table1 "
-				+ "\nwhere BorrowerLName = 'Bluekiller'");
+				+ "\nwhere BorrowerLName LIKE '%" + input + "%'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
 				+ "\nfrom borrower b, book_loans bl "
 				+ "\nwhere b.CardNo = bl.CardNo AND "
-				+ "\n\tb.BorrowerLName = 'Bluekiller'");
+				+ "\n\tb.BorrowerLName LIKE '%" + input + "%'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
 				+ "\nfrom borrower b, book_loans bl "
 				+ "\nwhere b.CardNo = bl.CardNo AND "
-				+ "\n\tb.BorrowerLName = 'Bluekiller'");
+				+ "\n\tb.BorrowerLName LIKE '%" + input + "%'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
 				+ "\nfrom borrower b, book_loans bl "
 				+ "\nwhere b.CardNo = bl.CardNo AND "
-				+ "\n\tb.BorrowerLName = 'Bluekiller'");
+				+ "\n\tb.BorrowerLName LIKE '%" + input + "%'");
 		variants.add("select b.BorrowerLName, b.CardNo, COUNT(*) as numBor " 
 				+ "\nfrom borrower b, book_loans bl "
 				+ "\nwhere b.CardNo = bl.CardNo AND "
-				+ "\n\tb.BorrowerLName = 'Bluekiller'");
+				+ "\n\tb.BorrowerLName LIKE '%" + input + "%'");
 	}
 	
 	public void prepareUpdates () throws Exception {
 		table.removeAllRowItems ();
+		
+		initVariants();
 		
 		setQuery(variants.get(viewing));
 		

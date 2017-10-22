@@ -5,7 +5,12 @@
 	-fx-faint-focus-color: white;
 }
 
-.toggle-button, .choice-box{
+#topbar{
+	-fx-background-color: black;
+	-fx-padding: 20px;
+}
+
+.button, .toggle-button, .choice-box{
 	-fx-background-color: linear-gradient(to bottom, peachpuff  0%, #ffb29b 100%);
 	-fx-text-alignment: center;
 }
@@ -14,12 +19,15 @@
 	-fx-padding: 20px;
 }
 
-.toggle-button:hover, .toggle-button:selected{
+.button:hover, .toggle-button:hover, .toggle-button:selected{
 	-fx-background-color: linear-gradient(to top, peachpuff  0%, #ffb29b 100%);	
+	-fx-text-fill: midnightblue  ;
+}
+
+.toggle-button:hover, .toggle-button:selected{
 	-fx-border-color: white;
 	-fx-border-width: 1;
 	-fx-border-radius: 3;
-	-fx-text-fill: midnightblue  ;
 	-fx-scale-x: 1.03;
 	-fx-scale-y: 1.03;
 }

@@ -17,7 +17,7 @@ import javafx.scene.control.TableView.ResizeFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ResultsView extends VBox implements View{
-	private final static double width = 960;
+	public final static double width = 960;
 	private ChoiceBox<String> querySelection;
 	private Label queryPrev;
 	private Label duration;
@@ -30,10 +30,9 @@ public class ResultsView extends VBox implements View{
 
 		this.vc = vc;
 		
-		this.setPadding(new Insets(20));
 		this.setAlignment(Pos.TOP_RIGHT);
-		this.setMaxWidth(width);
-		this.setMinWidth(width);
+		this.setMaxWidth(Double.MAX_VALUE);
+		this.setMinWidth(0);
 		this.setFillWidth(true);
 		
 		this.getStylesheets().add("style.css");

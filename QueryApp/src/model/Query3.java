@@ -6,56 +6,61 @@ public class Query3 extends QueryObject {
 	
 	public Query3 () {
 		super ();
+		input = "Twodream";
 		initVariants ();
 		table = new Table ("BookID", "Title", "AuthorLastName");
 		setViewing (0);
 	}
 	
 	private void initVariants () {
+		variants.clear();
+		
 		variants.add
 			("SELECT b.BookID, b.Title, ba.AuthorLastName "
 			+ "\nFROM book b, book_authors ba "
 			+ "\nWHERE b.BookID = ba.BookID AND " 
-			+ "\n\tba.AuthorLastName = 'Twodream'");
+			+ "\n\tba.AuthorLastName LIKE '%" + input + "%'");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
 		+ "\nFROM book b, \n\t(SELECT BookID, AuthorLastName \n\t\tFROM book_authors \n\t\tWHERE AuthorLastName  "
-		+ "= 'Twodream') as ba " 
+		+ "LIKE '%" + input + "%') as ba " 
 		+ "\nWHERE b.BookID = ba.BookID");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
 		+ "\nFROM book b, book_authors ba "
 		+ "\nWHERE b.BookID = ba.BookID AND " 
-		+ "\n\tba.AuthorLastName = 'Twodream'");
+		+ "\n\tba.AuthorLastName LIKE '%" + input + "%'");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
 		+ "\nFROM book b, book_authors ba "
 		+ "\nWHERE b.BookID = ba.BookID AND " 
-		+ "\n\tba.AuthorLastName = 'Twodream'");
+		+ "\n\tba.AuthorLastName LIKE '%" + input + "%'");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
 		+ "\nFROM book b, book_authors ba "
 		+ "\nWHERE b.BookID = ba.BookID AND " 
-		+ "\n\tba.AuthorLastName = 'Twodream'");
+		+ "\n\tba.AuthorLastName LIKE '%" + input + "%'");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
 		+ "\nFROM book b, \n\t(SELECT BookID, AuthorLastName \n\t\tFROM book_authors \n\t\tWHERE AuthorLastName  "
-		+ "= 'Twodream') as ba " 
+		+ "LIKE '%" + input + "%') as ba " 
 		+ "\nWHERE b.BookID = ba.BookID");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
 		+ "\nFROM book b, \n\t(SELECT BookID, AuthorLastName \n\t\tFROM book_authors \n\t\tWHERE AuthorLastName  "
-		+ "= 'Twodream') as ba " 
+		+ "LIKE '%" + input + "%') as ba " 
 		+ "\nWHERE b.BookID = ba.BookID");
 		variants.add
 		("SELECT b.BookID, b.Title, ba.AuthorLastName "
 		+ "\nFROM book b, \n\t(SELECT BookID, AuthorLastName \n\t\tFROM book_authors \n\t\tWHERE AuthorLastName  "
-		+ "= 'Twodream') as ba " 
+		+ "LIKE '%" + input + "%') as ba " 
 		+ "\nWHERE b.BookID = ba.BookID");
 	}
 	
 	public void prepareUpdates () throws Exception {
 		table.removeAllRowItems ();
+		
+		initVariants();
 		
 		setQuery(variants.get(viewing));
 		

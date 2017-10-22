@@ -6,46 +6,52 @@ public class Query1 extends QueryObject {
 	
 	public Query1 () {
 		super ();
+		input = "BBC Books";
 		initVariants ();
 		table = new Table ("Title", "PublisherName");
 		setViewing (0);
 	}
 	
 	private void initVariants () {
+		
+		variants.clear();
+		
 		variants.add
 			("select title, publishername \n" +
 			"from book \n" +
-			"where publishername = 'BBC Books'");
+			"where publishername LIKE '%" + input + "%'");
 		variants.add("select b.title, b.publishername \n" +
 				"from (" + 
 				"select title, publishername " + 
 				"from book " + 
-				"where publishername = 'BBC Books') as b");
+				"where publishername LIKE '%" + input + "%') as b");
 		variants.add(
 				"select title, publishername \n" +
 				"from book \n" +
-				"where publishername = 'BBC Books'");
+				"where publishername LIKE '" + input + "%'");
 		variants.add("select title, publishername \n" +
 				"from book \n" +
-				"where publishername = 'BBC Books'");
+				"where publishername LIKE '%" + input + "%'");
 		variants.add("select title, publishername \n" +
 				"from book \n" +
-				"where publishername = 'BBC Books'");
+				"where publishername LIKE '%" + input + "%'");
 		variants.add("select title, publishername \n" +
 				"from book \n" +
-				"where publishername = 'BBC Books'");
+				"where publishername LIKE '%" + input + "%'");
 		variants.add("select b.title, b.publishername \n" +
-				"from (select title, publishername from book where publishername = 'BBC Books') as b");
+				"from (select title, publishername from book where publishername LIKE '%" + input + "%') as b");
 		variants.add("select b.title, b.publishername \n" +
-				"from (select title, publishername from book where publishername = 'BBC Books') as b");
+				"from (select title, publishername from book where publishername LIKE '%" + input + "%') as b");
 		variants.add("select b.title, b.publishername \n" +
-				"from (select title, publishername from book where publishername = 'BBC Books') as b");
+				"from (select title, publishername from book where publishername LIKE '%" + input + "%') as b");
 		variants.add("select b.title, b.publishername \n" +
-				"from (select title, publishername from book where publishername = 'BBC Books') as b");
+				"from (select title, publishername from book where publishername LIKE '%" + input + "%') as b");
 	}
 	
 	public void prepareUpdates () throws Exception {
 		table.removeAllRowItems ();
+		
+		initVariants();
 		
 		try{dbc.executeUpdate("drop index a on book");} catch(Exception e){}
 		try{dbc.executeUpdate("drop index b on book");}catch(Exception e){}
